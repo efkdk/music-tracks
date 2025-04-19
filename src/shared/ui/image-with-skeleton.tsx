@@ -11,14 +11,14 @@ export const ImageWithSkeleton = ({
   return (
     <div className={`relative ${className}`}>
       {!isLoaded && (
-        <div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse rounded" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse rounded-sm" />
       )}
       <img
         src={src}
         alt={alt}
         onLoad={() => setIsLoaded(true)}
         {...props}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${
+        className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 rounded-sm ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       />

@@ -1,10 +1,10 @@
 import { useGetGenresQuery } from "@entities/track/model/api";
 
 export const SelectGenre = ({
-  selected,
+  selected = [],
   onChange,
 }: {
-  selected: string[];
+  selected?: string[];
   onChange: (genres: string[]) => void;
 }) => {
   const { data: genres = [] } = useGetGenresQuery();
@@ -41,6 +41,7 @@ export const SelectGenre = ({
       ))}
 
       <select
+        id="select-genre"
         onChange={(e) => handleAdd(e.target.value)}
         value=""
         className="border px-2 py-1 rounded text-sm"

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@shared/ui/button";
 import {
   Dialog,
@@ -7,15 +8,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@shared/ui/dialog";
-import { CreateTrackForm } from "./create-track-form";
+import { CreateTrackForm } from "@features/create-track";
 
 export const CreateTrackModal = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const close = () => setIsOpen(false);
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className="w-fit">Create a track</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a new track</DialogTitle>
           <DialogDescription>
@@ -23,7 +28,7 @@ export const CreateTrackModal = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <CreateTrackForm />
+        <CreateTrackForm closeModal={close} />
       </DialogContent>
     </Dialog>
   );

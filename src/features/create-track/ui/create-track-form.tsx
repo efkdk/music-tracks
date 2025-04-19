@@ -1,102 +1,31 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  CreateTrackFormSchema,
-  CreateTrackFormState,
-} from "@features/create-track";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@shared/ui/form";
-import { Input } from "@shared/ui/input";
-import { Button } from "@shared/ui/button";
-import { SelectGenre } from "./select-genre";
-import { useState } from "react";
+import { useCreateTrackMutation } from "@entities/track/model/api";
+import { TrackForm } from "@entities/track";
+import { TrackFormState } from "@entities/track/model/schema";
 
-export const CreateTrackForm = () => {
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+export const CreateTrackForm = ({ closeModal }: { closeModal: () => void }) => {
+  const [createTrack, { isLoading }] = useCreateTrackMutation();
 
-  const form = useForm<CreateTrackFormState>({
-    resolver: zodResolver(CreateTrackFormSchema),
-    defaultValues: {
-      title: "",
-      artist: "",
-      album: "",
-      coverImage: "",
-    },
-  });
+  const defaultValues = {
+    title: "",
+    album: "",
+    artist: "",
+    coverImage: "",
+    genres: [],
+  };
 
-  function onSubmit(values: CreateTrackFormState) {
-    console.log({ ...values, genres: selectedGenres });
+  async function onSubmit(values: TrackFormState) {
+    const response = await createTrack(values);
+    if ("data" in response) {
+      closeModal();
+    }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Input placeholder="Track title..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="album"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Album</FormLabel>
-              <FormControl>
-                <Input placeholder="Album title..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="artist"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Artist</FormLabel>
-              <FormControl>
-                <Input placeholder="Artist name..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="coverImage"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cover Image</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Provide url for cover image..."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <SelectGenre selected={selectedGenres} onChange={setSelectedGenres} />
-        <Button type="submit" variant={"outline"}>
-          Create a new track
-        </Button>
-      </form>
-    </Form>
+    <TrackForm
+      defaultValues={defaultValues}
+      mode="create"
+      onSubmit={onSubmit}
+      isLoading={isLoading}
+    />
   );
 };
