@@ -31,7 +31,7 @@ export const TrackFormSchema = z.object({
     ),
 });
 
-export type TrackFormState = z.infer<typeof TrackFormSchema>;
+export type ITrack = z.infer<typeof TrackFormSchema>;
 
 export interface ITrackResponse {
   id: string;
@@ -44,15 +44,6 @@ export interface ITrackResponse {
   audioFile?: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface ITrack {
-  title: string;
-  artist: string;
-  album?: string;
-  genres?: string[];
-  coverImage?: string;
-  audioFile?: string;
 }
 
 export interface ITracksMeta {

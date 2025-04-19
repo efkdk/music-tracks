@@ -1,6 +1,6 @@
 import { DefaultValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TrackFormSchema, TrackFormState } from "@entities/track/model/schema";
+import { TrackFormSchema, ITrack } from "@entities/track/model/schema";
 import { SelectGenre } from "@entities/track/ui/select-genre";
 import {
   Form,
@@ -20,18 +20,21 @@ export const TrackForm = ({
   mode,
 }: {
   mode: "create" | "edit";
-  onSubmit: (values: TrackFormState) => void;
-  defaultValues: DefaultValues<TrackFormState>;
+  onSubmit: (values: ITrack) => void;
+  defaultValues: DefaultValues<ITrack>;
   isLoading?: boolean;
 }) => {
-  const form = useForm<TrackFormState>({
+  const form = useForm<ITrack>({
     resolver: zodResolver(TrackFormSchema),
     defaultValues,
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 w-full"
+      >
         <FormField
           control={form.control}
           name="title"
@@ -101,7 +104,12 @@ export const TrackForm = ({
           )}
         />
 
-        <Button type="submit" variant={"outline"} disabled={isLoading}>
+        <Button
+          type="submit"
+          size={"lg"}
+          disabled={isLoading}
+          className="w-fit self-end"
+        >
           {isLoading
             ? mode === "create"
               ? "Creating..."

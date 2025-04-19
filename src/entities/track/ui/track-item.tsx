@@ -1,7 +1,8 @@
-import { ITrack } from "@entities/track/model/types";
-import { TrackImage } from "@entities/track/";
+import { ITrackResponse } from "@entities/track/model/schema";
+import { TrackImage } from "@entities/track";
+import { EditTrackModal } from "@features/edit-track";
 
-export const TrackItem = ({ track }: { track: ITrack }) => {
+export const TrackItem = ({ track }: { track: ITrackResponse }) => {
   return (
     <li>
       <div className="flex gap-4 w-full">
@@ -15,16 +16,21 @@ export const TrackItem = ({ track }: { track: ITrack }) => {
             <h3 className="text-lg font-bold">{track.title}</h3>
           </div>
           {track.genres && (
-            <ul className="flex gap-2 flex-wrap">
-              {track.genres.map((genre) => (
-                <li
-                  className="capitalize bg-gray-400 rounded-sm h-fit w-fit p-1 text-white"
-                  key={genre}
-                >
-                  {genre}
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-col gap-4">
+              <ul className="flex gap-2 flex-wrap h-fit w-fit">
+                {track.genres.map((genre) => (
+                  <li
+                    className="capitalize bg-gray-400 rounded-sm p-1 text-white"
+                    key={genre}
+                  >
+                    {genre}
+                  </li>
+                ))}
+              </ul>
+              <div className="w-fit self-end">
+                <EditTrackModal track={track} />
+              </div>
+            </div>
           )}
         </div>
       </div>

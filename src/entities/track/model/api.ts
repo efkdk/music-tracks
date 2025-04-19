@@ -17,13 +17,28 @@ export const tracksApi = createApi({
         providesTags: ["tracks"],
       }
     ),
-    createTrack: build.mutation<ITrackResponse, ITrack>({
+    createTrack: build.mutation<ITrackResponse, void>({
       query: (body) => ({ url: "tracks", method: "POST", body }),
+      invalidatesTags: ["tracks"],
+    }),
+    updateTrack: build.mutation<
+      ITrackResponse,
+      { id: string; body: Partial<ITrack> }
+    >({
+      query: ({ id, body }) => ({
+        url: `tracks/${id}`,
+        method: "PUT",
+        body,
+      }),
       invalidatesTags: ["tracks"],
     }),
     getGenres: build.query<string[], void>({ query: () => "genres" }),
   }),
 });
 
-export const { useGetTracksQuery, useCreateTrackMutation, useGetGenresQuery } =
-  tracksApi;
+export const {
+  useGetTracksQuery,
+  useCreateTrackMutation,
+  useUpdateTrackMutation,
+  useGetGenresQuery,
+} = tracksApi;
