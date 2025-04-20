@@ -9,9 +9,9 @@ export const TrackImage = ({
 }) => {
   return (
     <ImageWithSkeleton
-      src={coverImage || "./public/default-cover.png"}
+      src={coverImage || "/default-cover.png"}
       onError={(e) => {
-        (e.target as HTMLImageElement).src = "./public/default-cover.png";
+        (e.target as HTMLImageElement).src = "/default-cover.png";
       }}
       alt={title}
       className="flex-shrink-0 flex-grow-0 w-32 h-32 object-cover"

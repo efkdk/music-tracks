@@ -32,6 +32,13 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: ["tracks"],
     }),
+    deleteTrackById: build.mutation<void, ITrackResponse["id"]>({
+      query: (id) => ({
+        url: `tracks/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["tracks"],
+    }),
     getGenres: build.query<string[], void>({ query: () => "genres" }),
   }),
 });
@@ -40,5 +47,6 @@ export const {
   useGetTracksQuery,
   useCreateTrackMutation,
   useUpdateTrackMutation,
+  useDeleteTrackByIdMutation,
   useGetGenresQuery,
 } = tracksApi;

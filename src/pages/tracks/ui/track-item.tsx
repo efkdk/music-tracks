@@ -1,6 +1,7 @@
 import { ITrackResponse } from "@entities/track/model/schema";
 import { TrackImage } from "@entities/track";
 import { EditTrackModal } from "@features/edit-track";
+import { DeleteTrackModal } from "@features/delete-track";
 
 export const TrackItem = ({ track }: { track: ITrackResponse }) => {
   return (
@@ -17,7 +18,7 @@ export const TrackItem = ({ track }: { track: ITrackResponse }) => {
           </div>
           {track.genres && (
             <div className="flex flex-col gap-4">
-              <ul className="flex gap-2 flex-wrap h-fit w-fit">
+              <ul className="flex self-end gap-2 flex-wrap h-fit w-fit">
                 {track.genres.map((genre) => (
                   <li
                     className="capitalize bg-gray-400 rounded-sm p-1 text-white"
@@ -27,8 +28,9 @@ export const TrackItem = ({ track }: { track: ITrackResponse }) => {
                   </li>
                 ))}
               </ul>
-              <div className="w-fit self-end">
+              <div className="flex gap-2 w-fit self-end">
                 <EditTrackModal track={track} />
+                <DeleteTrackModal title={track.title} id={track.id} />
               </div>
             </div>
           )}
