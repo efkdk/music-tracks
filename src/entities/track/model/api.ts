@@ -54,6 +54,13 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: ["tracks"],
     }),
+    deleteAudioFile: build.mutation<ITrackResponse, ITrackResponse["id"]>({
+      query: (id) => ({
+        url: `tracks/${id}/file`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["tracks"],
+    }),
     getGenres: build.query<string[], void>({ query: () => "genres" }),
   }),
 });
@@ -64,5 +71,6 @@ export const {
   useUpdateTrackMutation,
   useDeleteTrackByIdMutation,
   useUploadAudioFileMutation,
+  useDeleteAudioFileMutation,
   useGetGenresQuery,
 } = tracksApi;
