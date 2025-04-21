@@ -1,4 +1,4 @@
-import { useGetGenresQuery } from "@entities/track/model/api";
+import { useGetGenresQuery } from '@entities/track/model/api';
 
 export const SelectGenre = ({
   selected = [],

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button } from "@shared/ui/button";
+import { useState } from 'react';
+import { Button } from '@shared/ui/button';
 import {
   Dialog,
   DialogHeader,
@@ -7,8 +7,8 @@ import {
   DialogDescription,
   DialogTitle,
   DialogTrigger,
-} from "@shared/ui/dialog";
-import { CreateTrackForm } from "@features/create-track";
+} from '@shared/ui/dialog';
+import { CreateTrackForm } from '@features/create-track';
 
 export const CreateTrackModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

@@ -1,17 +1,10 @@
-import { DefaultValues, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { TrackFormSchema, ITrack } from "@entities/track/model/schema";
-import { SelectGenre } from "@entities/track/ui/select-genre";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@shared/ui/form";
-import { Input } from "@shared/ui/input";
-import { Button } from "@shared/ui/button";
+import { DefaultValues, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TrackFormSchema, ITrack } from '@entities/track/model/schema';
+import { SelectGenre } from '@entities/track/ui/select-genre';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/form';
+import { Input } from '@shared/ui/input';
+import { Button } from '@shared/ui/button';
 
 export const TrackForm = ({
   defaultValues,
@@ -19,7 +12,7 @@ export const TrackForm = ({
   isLoading,
   mode,
 }: {
-  mode: "create" | "edit";
+  mode: 'create' | 'edit';
   onSubmit: (values: ITrack) => void;
   defaultValues: DefaultValues<ITrack>;
   isLoading?: boolean;
@@ -31,10 +24,7 @@ export const TrackForm = ({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 w-full"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full">
         <FormField
           control={form.control}
           name="title"
@@ -81,10 +71,7 @@ export const TrackForm = ({
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Provide url for cover image..."
-                  {...field}
-                />
+                <Input placeholder="Provide url for cover image..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -104,19 +91,14 @@ export const TrackForm = ({
           )}
         />
 
-        <Button
-          type="submit"
-          size={"lg"}
-          disabled={isLoading}
-          className="w-fit self-end"
-        >
+        <Button type="submit" size="lg" disabled={isLoading} className="w-fit self-end">
           {isLoading
-            ? mode === "create"
-              ? "Creating..."
-              : "Updating..."
-            : mode === "create"
-            ? "Create a new track"
-            : "Update track metadata"}
+            ? mode === 'create'
+              ? 'Creating...'
+              : 'Updating...'
+            : mode === 'create'
+              ? 'Create a new track'
+              : 'Update track metadata'}
         </Button>
       </form>
     </Form>

@@ -1,7 +1,7 @@
-import { useGetTracksQuery } from "@entities/track/model/api";
-import { CreateTrackModal } from "@features/create-track";
-import { TrackItem } from "@entities/track";
-import { Button } from "@shared/ui/button";
+import { useGetTracksQuery } from '@entities/track/model/api';
+import { CreateTrackModal } from '@features/create-track';
+import { TrackItem } from '@entities/track';
+import { Button } from '@shared/ui/button';
 
 export const TracksPage = () => {
   const { data: tracks, error, isLoading, refetch } = useGetTracksQuery();
@@ -27,9 +27,7 @@ export const TracksPage = () => {
       )}
       {error && (
         <div className="flex flex-col gap-2 self-center items-center">
-          <p className="text-lg font-bold">
-            Oops! Failed to fetch tracks. Try again.
-          </p>
+          <p className="text-lg font-bold">Oops! Failed to fetch tracks. Try again.</p>
           <Button className="w-fit" onClick={() => refetch()}>
             Fetch again
           </Button>

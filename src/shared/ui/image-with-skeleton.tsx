@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const ImageWithSkeleton = ({
   src,
   alt,
   className,
   ...props
-}: React.ComponentProps<"img">) => {
+}: React.ComponentProps<'img'>) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export const ImageWithSkeleton = ({
         onLoad={() => setIsLoaded(true)}
         {...props}
         className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 rounded-sm ${
-          isLoaded ? "opacity-100" : "opacity-0"
+          isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
       />
     </div>

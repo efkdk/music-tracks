@@ -1,1 +1,1 @@
-export { DeleteTrackModal } from "./ui/delete-track-modal";
+export { DeleteTrackModal } from './ui/delete-track-modal';

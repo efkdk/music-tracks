@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button } from "@shared/ui/button";
+import { useState } from 'react';
+import { Button } from '@shared/ui/button';
 import {
   Dialog,
   DialogHeader,
@@ -7,10 +7,10 @@ import {
   DialogDescription,
   DialogTitle,
   DialogTrigger,
-} from "@shared/ui/dialog";
-import { EditTrackForm } from "@features/edit-track";
-import { ITrackResponse } from "@entities/track/model/schema";
-import { Edit2 } from "lucide-react";
+} from '@shared/ui/dialog';
+import { EditTrackForm } from '@features/edit-track';
+import { ITrackResponse } from '@entities/track/model/schema';
+import { Edit2 } from 'lucide-react';
 
 export const EditTrackModal = ({ track }: { track: ITrackResponse }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export const EditTrackModal = ({ track }: { track: ITrackResponse }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={"outline"} className="w-fit">
+        <Button variant="outline" className="w-fit">
           <Edit2 />
         </Button>
       </DialogTrigger>

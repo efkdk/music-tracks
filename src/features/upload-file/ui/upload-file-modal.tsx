@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { FileAudio } from "lucide-react";
-import { UploadFileForm } from "@features/upload-file";
-import { Button } from "@shared/ui/button";
+import { useState } from 'react';
+import { FileAudio } from 'lucide-react';
+import { UploadFileForm } from '@features/upload-file';
+import { Button } from '@shared/ui/button';
 import {
   Dialog,
   DialogHeader,
@@ -9,14 +9,10 @@ import {
   DialogDescription,
   DialogTitle,
   DialogTrigger,
-} from "@shared/ui/dialog";
-import { ITrackResponse } from "@entities/track/model/schema";
+} from '@shared/ui/dialog';
+import { ITrackResponse } from '@entities/track/model/schema';
 
-export const UploadFileModal = ({
-  trackId,
-}: {
-  trackId: ITrackResponse["id"];
-}) => {
+export const UploadFileModal = ({ trackId }: { trackId: ITrackResponse['id'] }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const close = () => {
@@ -26,7 +22,7 @@ export const UploadFileModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={"outline"} className="w-fit">
+        <Button variant="outline" className="w-fit">
           <FileAudio />
         </Button>
       </DialogTrigger>

@@ -1,1 +1,1 @@
-export { DeleteFileModal } from "./ui/delete-file-modal";
+export { DeleteFileModal } from './ui/delete-file-modal';
