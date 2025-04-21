@@ -11,13 +11,17 @@ export const tracksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ["tracks"],
   endpoints: (build) => ({
-    getTracks: build.query<{ data: ITrackResponse[]; meta: ITracksMeta }, void>(
-      {
-        query: () => "tracks",
-        providesTags: ["tracks"],
-      }
-    ),
-    createTrack: build.mutation<ITrackResponse, void>({
+    getTracks: build.query<ITrackResponse[], void>({
+      query: () => "tracks",
+      providesTags: ["tracks"],
+      transformResponse: (response: {
+        data: ITrackResponse[];
+        meta: ITracksMeta;
+      }) => {
+        return response.data;
+      },
+    }),
+    createTrack: build.mutation<ITrackResponse, ITrack>({
       query: (body) => ({ url: "tracks", method: "POST", body }),
       invalidatesTags: ["tracks"],
     }),
@@ -39,6 +43,17 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: ["tracks"],
     }),
+    uploadAudioFile: build.mutation<
+      ITrackResponse,
+      { id: ITrackResponse["id"]; body: FormData }
+    >({
+      query: ({ id, body }) => ({
+        url: `tracks/${id}/upload`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["tracks"],
+    }),
     getGenres: build.query<string[], void>({ query: () => "genres" }),
   }),
 });
@@ -48,5 +63,6 @@ export const {
   useCreateTrackMutation,
   useUpdateTrackMutation,
   useDeleteTrackByIdMutation,
+  useUploadAudioFileMutation,
   useGetGenresQuery,
 } = tracksApi;

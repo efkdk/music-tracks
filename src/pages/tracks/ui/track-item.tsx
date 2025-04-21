@@ -2,6 +2,7 @@ import { ITrackResponse } from "@entities/track/model/schema";
 import { TrackImage } from "@entities/track";
 import { EditTrackModal } from "@features/edit-track";
 import { DeleteTrackModal } from "@features/delete-track";
+import { UploadFileModal } from "@features/upload-file";
 
 export const TrackItem = ({ track }: { track: ITrackResponse }) => {
   return (
@@ -16,8 +17,8 @@ export const TrackItem = ({ track }: { track: ITrackResponse }) => {
             </span>
             <h3 className="text-lg font-bold">{track.title}</h3>
           </div>
-          {track.genres && (
-            <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
+            {track.genres && (
               <ul className="flex self-end gap-2 flex-wrap h-fit w-fit">
                 {track.genres.map((genre) => (
                   <li
@@ -28,12 +29,13 @@ export const TrackItem = ({ track }: { track: ITrackResponse }) => {
                   </li>
                 ))}
               </ul>
-              <div className="flex gap-2 w-fit self-end">
-                <EditTrackModal track={track} />
-                <DeleteTrackModal title={track.title} id={track.id} />
-              </div>
+            )}
+            <div className="flex gap-2 w-fit self-end">
+              <UploadFileModal trackId={track.id} />
+              <EditTrackModal track={track} />
+              <DeleteTrackModal title={track.title} id={track.id} />
             </div>
-          )}
+          </div>
         </div>
       </div>
     </li>

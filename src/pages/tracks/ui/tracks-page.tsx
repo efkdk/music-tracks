@@ -4,7 +4,7 @@ import { TrackItem } from "@entities/track";
 import { Button } from "@shared/ui/button";
 
 export const TracksPage = () => {
-  const { data, error, isLoading, refetch } = useGetTracksQuery();
+  const { data: tracks, error, isLoading, refetch } = useGetTracksQuery();
 
   return (
     <div className="container flex flex-col gap-4">
@@ -14,11 +14,15 @@ export const TracksPage = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <ul className="flex flex-col gap-4">
-            {data?.data.map((track) => (
-              <TrackItem key={track.id} track={track} />
-            ))}
-          </ul>
+          {tracks ? (
+            <ul className="flex flex-col gap-4">
+              {tracks.map((track) => (
+                <TrackItem key={track.id} track={track} />
+              ))}
+            </ul>
+          ) : (
+            <p>Looks like there are no tracks yet :(</p>
+          )}
         </>
       )}
       {error && (
