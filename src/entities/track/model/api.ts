@@ -7,7 +7,15 @@ export const tracksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['tracks'],
   endpoints: (build) => ({
-    getTracks: build.query<ITrackResponse[], { page?: number; limit?: number } | void>({
+    getTracks: build.query<
+      ITrackResponse[],
+      {
+        page?: number;
+        limit?: number;
+        sort?: 'title' | 'artist' | 'album' | 'createdAt';
+        order?: 'asc' | 'desc';
+      } | void
+    >({
       query: (params) => ({
         url: 'tracks',
         params: params ?? undefined,
