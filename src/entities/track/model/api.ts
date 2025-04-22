@@ -7,17 +7,32 @@ export const tracksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['tracks'],
   endpoints: (build) => ({
-    getTracks: build.query<ITrackResponse[], void>({
-      query: () => 'tracks',
+    getTracks: build.query<ITrackResponse[], { page?: number; limit?: number } | void>({
+      query: (params) => ({
+        url: 'tracks',
+        params: params ?? undefined,
+      }),
       providesTags: ['tracks'],
       transformResponse: (response: { data: ITrackResponse[]; meta: ITracksMeta }) => {
         return response.data;
       },
     }),
+
+    getTracksMeta: build.query<ITracksMeta, void>({
+      query: () => ({
+        url: 'tracks',
+      }),
+      providesTags: ['tracks'],
+      transformResponse: (response: { data: ITrackResponse[]; meta: ITracksMeta }) => {
+        return response.meta;
+      },
+    }),
+
     createTrack: build.mutation<ITrackResponse, ITrack>({
       query: (body) => ({ url: 'tracks', method: 'POST', body }),
       invalidatesTags: ['tracks'],
     }),
+
     updateTrack: build.mutation<ITrackResponse, { id: string; body: Partial<ITrack> }>({
       query: ({ id, body }) => ({
         url: `tracks/${id}`,
@@ -26,6 +41,7 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: ['tracks'],
     }),
+
     deleteTrackById: build.mutation<void, ITrackResponse['id']>({
       query: (id) => ({
         url: `tracks/${id}`,
@@ -33,6 +49,7 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: ['tracks'],
     }),
+
     uploadAudioFile: build.mutation<ITrackResponse, { id: ITrackResponse['id']; body: FormData }>({
       query: ({ id, body }) => ({
         url: `tracks/${id}/upload`,
@@ -41,6 +58,7 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: ['tracks'],
     }),
+
     deleteAudioFile: build.mutation<ITrackResponse, ITrackResponse['id']>({
       query: (id) => ({
         url: `tracks/${id}/file`,
@@ -48,12 +66,14 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: ['tracks'],
     }),
+
     getGenres: build.query<string[], void>({ query: () => 'genres' }),
   }),
 });
 
 export const {
   useGetTracksQuery,
+  useGetTracksMetaQuery,
   useCreateTrackMutation,
   useUpdateTrackMutation,
   useDeleteTrackByIdMutation,

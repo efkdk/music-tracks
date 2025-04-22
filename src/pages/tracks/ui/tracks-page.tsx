@@ -1,10 +1,15 @@
-import { useGetTracksQuery } from '@entities/track/model/api';
+import { useState } from 'react';
+import { useGetTracksQuery, useGetTracksMetaQuery } from '@entities/track/model/api';
 import { CreateTrackModal } from '@features/create-track';
 import { TrackItem } from '@pages/tracks';
 import { Button } from '@shared/ui/button';
+import { PagePagination } from '@shared/ui/page-pagination';
 
 export const TracksPage = () => {
-  const { data: tracks, error, isLoading, refetch } = useGetTracksQuery();
+  const [page, setPage] = useState<number>(1);
+
+  const { data: tracks, error, isLoading, refetch } = useGetTracksQuery({ page });
+  const { data: meta } = useGetTracksMetaQuery();
 
   return (
     <div className="container flex flex-col gap-4">
@@ -15,11 +20,18 @@ export const TracksPage = () => {
       ) : (
         <>
           {tracks ? (
-            <ul className="flex flex-col gap-4">
-              {tracks.map((track) => (
-                <TrackItem key={track.id} track={track} />
-              ))}
-            </ul>
+            <>
+              <ul className="flex flex-col gap-4">
+                {tracks.map((track) => (
+                  <TrackItem key={track.id} track={track} />
+                ))}
+              </ul>
+              <PagePagination
+                currentPage={page}
+                onPageChange={setPage}
+                totalPages={meta?.totalPages}
+              />
+            </>
           ) : (
             <p>Looks like there are no tracks yet :(</p>
           )}
