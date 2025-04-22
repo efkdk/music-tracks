@@ -1,6 +1,6 @@
 import { useGetTracksQuery } from '@entities/track/model/api';
 import { CreateTrackModal } from '@features/create-track';
-import { TrackItem } from '@entities/track';
+import { TrackItem } from '@pages/tracks';
 import { Button } from '@shared/ui/button';
 
 export const TracksPage = () => {
