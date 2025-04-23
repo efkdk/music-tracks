@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ITrack, ITrackResponse, ITracksMeta } from '@entities/track/model/schema';
+import type {
+  ITrack,
+  ITrackResponse,
+  ITracksMeta,
+  ITracksParams,
+} from '@entities/track/model/schema';
 import { API_URL } from '@shared/lib/constants';
 
 export const tracksApi = createApi({
@@ -7,33 +12,12 @@ export const tracksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   tagTypes: ['tracks'],
   endpoints: (build) => ({
-    getTracks: build.query<
-      ITrackResponse[],
-      {
-        page?: number;
-        limit?: number;
-        sort?: 'title' | 'artist' | 'album' | 'createdAt';
-        order?: 'asc' | 'desc';
-      } | void
-    >({
+    getTracks: build.query<{ data: ITrackResponse[]; meta: ITracksMeta }, ITracksParams | void>({
       query: (params) => ({
         url: 'tracks',
         params: params ?? undefined,
       }),
       providesTags: ['tracks'],
-      transformResponse: (response: { data: ITrackResponse[]; meta: ITracksMeta }) => {
-        return response.data;
-      },
-    }),
-
-    getTracksMeta: build.query<ITracksMeta, void>({
-      query: () => ({
-        url: 'tracks',
-      }),
-      providesTags: ['tracks'],
-      transformResponse: (response: { data: ITrackResponse[]; meta: ITracksMeta }) => {
-        return response.meta;
-      },
     }),
 
     createTrack: build.mutation<ITrackResponse, ITrack>({
@@ -81,7 +65,6 @@ export const tracksApi = createApi({
 
 export const {
   useGetTracksQuery,
-  useGetTracksMetaQuery,
   useCreateTrackMutation,
   useUpdateTrackMutation,
   useDeleteTrackByIdMutation,

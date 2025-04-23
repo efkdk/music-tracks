@@ -48,3 +48,12 @@ export interface ITracksMeta {
   limit: number;
   totalPages: number;
 }
+
+export interface ITracksParams {
+  page?: number;
+  limit?: number;
+  sort?: 'title' | 'artist' | 'album' | 'createdAt';
+  order?: 'asc' | 'desc';
+  genre?: string;
+  artist?: string;
+}

@@ -8,3 +8,12 @@ export interface TracksSortProps {
   };
   onChange: (value?: { by: SortField; order: SortOrder }) => void;
 }
+
+export interface IFilterOptions {
+  genre?: string;
+  artists?: string;
+}
+export interface GenreFilterProps {
+  filters?: IFilterOptions;
+  onChange: (value?: IFilterOptions) => void;
+}
