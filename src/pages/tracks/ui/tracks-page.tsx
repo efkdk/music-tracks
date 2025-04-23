@@ -1,22 +1,17 @@
 import { useState } from 'react';
 import { useGetTracksQuery } from '@entities/track/model/api';
 import { CreateTrackModal } from '@features/create-track';
-import { TrackItem } from '@pages/tracks';
+import { TrackItem, TracksSort, GenreFilter, ArtistFilter, Search } from '@pages/tracks';
 import type { SortField, SortOrder } from '@pages/tracks/model/schema';
-import { TracksSort } from '@pages/tracks/ui/tracks-sort';
-import { GenreFilter } from '@pages/tracks/ui/genre-filter';
 import { Button } from '@shared/ui/button';
 import { PagePagination } from '@shared/ui/page-pagination';
-import { ArtistFilter } from './artist-filter';
-import { useDebounce } from '../lib/hooks';
 
 export const TracksPage = () => {
   const [page, setPage] = useState<number>(1);
   const [sort, setSort] = useState<{ by: SortField; order: SortOrder }>();
   const [genre, setGenre] = useState<string>();
   const [artist, setArtist] = useState<string>();
-
-  const debouncedArtist = useDebounce<string | undefined>(artist, 1000);
+  const [search, setSearch] = useState<string>();
 
   const {
     data: { data: tracks, meta } = {},
@@ -28,7 +23,8 @@ export const TracksPage = () => {
     sort: sort?.by,
     order: sort?.order,
     genre,
-    artist: debouncedArtist,
+    artist,
+    search,
   });
 
   return (
@@ -38,6 +34,7 @@ export const TracksPage = () => {
       <TracksSort sortOptions={sort} onChange={setSort} />
       <GenreFilter onChange={setGenre} />
       <ArtistFilter artist={artist} onChange={setArtist} />
+      <Search search={search} onChange={setSearch} />
       {isLoading ? (
         <p>Loading...</p>
       ) : (

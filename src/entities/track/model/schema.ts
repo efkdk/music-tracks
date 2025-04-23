@@ -56,4 +56,5 @@ export interface ITracksParams {
   order?: 'asc' | 'desc';
   genre?: string;
   artist?: string;
+  search?: string;
 }
