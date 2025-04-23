@@ -2,30 +2,42 @@ import { useState } from 'react';
 import { useGetTracksQuery } from '@entities/track/model/api';
 import { CreateTrackModal } from '@features/create-track';
 import { TrackItem } from '@pages/tracks';
-import type { IFilterOptions, SortField, SortOrder } from '@pages/tracks/model/schema';
+import type { SortField, SortOrder } from '@pages/tracks/model/schema';
 import { TracksSort } from '@pages/tracks/ui/tracks-sort';
 import { GenreFilter } from '@pages/tracks/ui/genre-filter';
 import { Button } from '@shared/ui/button';
 import { PagePagination } from '@shared/ui/page-pagination';
+import { ArtistFilter } from './artist-filter';
+import { useDebounce } from '../lib/hooks';
 
 export const TracksPage = () => {
   const [page, setPage] = useState<number>(1);
   const [sort, setSort] = useState<{ by: SortField; order: SortOrder }>();
-  const [filters, setFilters] = useState<IFilterOptions>();
+  const [genre, setGenre] = useState<string>();
+  const [artist, setArtist] = useState<string>();
+
+  const debouncedArtist = useDebounce<string | undefined>(artist, 1000);
 
   const {
     data: { data: tracks, meta } = {},
     error,
     isLoading,
     refetch,
-  } = useGetTracksQuery({ page, sort: sort?.by, order: sort?.order, ...filters });
+  } = useGetTracksQuery({
+    page,
+    sort: sort?.by,
+    order: sort?.order,
+    genre,
+    artist: debouncedArtist,
+  });
 
   return (
     <div className="container flex flex-col gap-4">
       <h1 className="text-3xl font-bold">Music Tracks</h1>
       <CreateTrackModal />
       <TracksSort sortOptions={sort} onChange={setSort} />
-      <GenreFilter filters={filters} onChange={setFilters} />
+      <GenreFilter onChange={setGenre} />
+      <ArtistFilter artist={artist} onChange={setArtist} />
       {isLoading ? (
         <p>Loading...</p>
       ) : (

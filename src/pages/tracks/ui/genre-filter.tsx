@@ -1,8 +1,7 @@
 import { useGetGenresQuery } from '@entities/track/model/api';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui/select';
-import { GenreFilterProps } from '@pages/tracks/model/schema';
 
-export const GenreFilter = ({ filters, onChange }: GenreFilterProps) => {
+export const GenreFilter = ({ onChange }: { onChange: (value: string) => void }) => {
   const { data: genres } = useGetGenresQuery();
 
   if (!genres) return null;
@@ -10,7 +9,7 @@ export const GenreFilter = ({ filters, onChange }: GenreFilterProps) => {
   return (
     <Select
       onValueChange={(value) => {
-        onChange({ ...filters, genre: value });
+        onChange(value);
       }}
     >
       <SelectTrigger className="w-[10rem]">
