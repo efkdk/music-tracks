@@ -67,7 +67,7 @@ export const AudioPlayer = () => {
   if (!currentTrack || !currentTrack.audioFile) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 p-4 flex flex-col gap-6 z-50 h-[8rem] rounded-xl border text-card-foreground border-t shadow-lg bg-background/80 backdrop-blur-sm">
+    <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 flex flex-col gap-4 sm:gap-6 z-50 h-[10rem] sm:h-[8rem] rounded-xl border text-card-foreground border-t shadow-lg bg-background/80 backdrop-blur-sm">
       <Audio
         ref={audioRef}
         fileName={currentTrack.audioFile}
@@ -81,17 +81,17 @@ export const AudioPlayer = () => {
           }
         }}
       />
-      <div className="flex justify-between items-center">
+      <div className="flex flex-wrap gap-2 justify-between items-center">
         <div className="flex gap-2 items-center">
           <TrackImage
-            className="w-12 h-12"
+            className="w-8 h-8 sm:w-12 sm:h-12"
             title={currentTrack.title}
             coverImage={currentTrack.coverImage}
           />
           <div>
-            <p className="font-bold">{currentTrack.title}</p>
+            <p className="font-semibold sm:font-bold">{currentTrack.title}</p>
             <span> — </span>
-            <span className="font-semibold text-gray-500">{currentTrack.artist}</span>
+            <span className="sm:font-semibold text-gray-500">{currentTrack.artist}</span>
           </div>
         </div>
 
@@ -139,8 +139,14 @@ export const AudioPlayer = () => {
           max={audioRef.current?.duration || 100}
           onValueChange={(val) => {
             if (audioRef.current) {
+              dispatch(pauseTrack());
               audioRef.current.currentTime = val[0];
               dispatch(setProgress(val[0]));
+            }
+          }}
+          onValueCommit={() => {
+            if (audioRef.current) {
+              dispatch(resumeTrack());
             }
           }}
         />

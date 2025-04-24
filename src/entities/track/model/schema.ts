@@ -6,7 +6,7 @@ export const TrackFormSchema = z.object({
   album: z
     .string()
     .optional()
-    .refine((value) => !value || value.length > 2, {
+    .refine((value) => !value || value.length >= 2, {
       message: 'Album title must be at least 2 characters long.',
     }),
   genres: z.string().array().optional(),

@@ -59,8 +59,8 @@ export const TracksPage = () => {
           </div>
         )}
 
-        {!isFetching && tracks && tracks.length !== 0 && (
-          <>
+        {tracks && tracks.length !== 0 && (
+          <div className="flex flex-col gap-4">
             <ul className="flex flex-col gap-4">
               {tracks.map((track) => (
                 <TrackItem key={track.id} track={track} />
@@ -71,7 +71,7 @@ export const TracksPage = () => {
               onPageChange={setPage}
               totalPages={meta?.totalPages}
             />
-          </>
+          </div>
         )}
 
         {!isFetching && (!tracks || tracks.length === 0) && (
