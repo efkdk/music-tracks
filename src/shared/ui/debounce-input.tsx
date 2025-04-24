@@ -20,6 +20,10 @@ export const DebounceInput = ({
   const debouncedValue = useDebounce<string>(inputValue, delay);
 
   useEffect(() => {
+    setInputValue(value || '');
+  }, [value]);
+
+  useEffect(() => {
     onDebouncedChange(debouncedValue);
   }, [debouncedValue, onDebouncedChange]);
 

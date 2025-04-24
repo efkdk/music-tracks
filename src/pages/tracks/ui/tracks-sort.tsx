@@ -45,7 +45,7 @@ export const TracksSort = ({ sortOptions, onChange }: TracksSortProps) => {
       </Select>
 
       {sortOptions && (
-        <Button onClick={() => onChange()} variant="destructive">
+        <Button onClick={() => onChange()} variant="destructive" size="sm">
           <X />
         </Button>
       )}

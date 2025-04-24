@@ -48,7 +48,7 @@ export const TracksPage = () => {
 
       <div className="flex items-center self-end flex-wrap gap-2">
         <FunnelPlus />
-        <GenreFilter onChange={setGenre} />
+        <GenreFilter genre={genre} onChange={setGenre} />
         <ArtistFilter artist={artist} onChange={setArtist} />
       </div>
 
