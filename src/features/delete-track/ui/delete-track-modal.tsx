@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Loader2, Trash2 } from 'lucide-react';
 import { Button } from '@shared/ui/button';
 import {
@@ -16,7 +16,7 @@ import { getApiErrorMessage } from '@shared/lib/helpers';
 
 type DeleteTrackModalProps = Pick<ITrackResponse, 'id' | 'title'>;
 
-export const DeleteTrackModal = ({ title, id }: DeleteTrackModalProps) => {
+export const DeleteTrackModal: FC<DeleteTrackModalProps> = ({ title, id }) => {
   const [deleteTrackById, { isLoading }] = useDeleteTrackByIdMutation();
   const { success, error } = useToast();
 

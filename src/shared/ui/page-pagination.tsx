@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -13,7 +14,11 @@ interface PagePaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export const PagePagination = ({ currentPage, totalPages, onPageChange }: PagePaginationProps) => {
+export const PagePagination: FC<PagePaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   if (!totalPages || totalPages <= 1) return null;
 
   return (

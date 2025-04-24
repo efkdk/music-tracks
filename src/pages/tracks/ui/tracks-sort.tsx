@@ -1,9 +1,10 @@
+import { memo, FC } from 'react';
+import { X } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui/select';
 import type { SortField, SortOrder, TracksSortProps } from '@pages/tracks/model/schema';
 import { Button } from '@shared/ui/button';
-import { X } from 'lucide-react';
 
-export const TracksSort = ({ sortOptions, onChange }: TracksSortProps) => {
+export const TracksSort: FC<TracksSortProps> = memo(({ sortOptions, onChange }) => {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <Select
@@ -51,4 +52,4 @@ export const TracksSort = ({ sortOptions, onChange }: TracksSortProps) => {
       )}
     </div>
   );
-};
+});

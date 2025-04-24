@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { Button } from '@shared/ui/button';
 import {
   Dialog,
@@ -12,7 +12,9 @@ import { EditTrackForm } from '@features/edit-track';
 import { ITrackResponse } from '@entities/track/model/schema';
 import { Edit2 } from 'lucide-react';
 
-export const EditTrackModal = ({ track }: { track: ITrackResponse }) => {
+type EditTrackModalProps = { track: ITrackResponse };
+
+export const EditTrackModal: FC<EditTrackModalProps> = ({ track }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const close = () => setIsOpen(false);

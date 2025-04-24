@@ -1,16 +1,16 @@
-import { useUpdateTrackMutation } from '@features/edit-track/model/api';
+import { FC } from 'react';
 import { TrackForm } from '@entities/track';
 import { ITrack, ITrackResponse } from '@entities/track/model/schema';
+import { useUpdateTrackMutation } from '@features/edit-track/model/api';
 import { useToast } from '@shared/lib/hooks';
 import { getApiErrorMessage } from '@shared/lib/helpers';
 
-export const EditTrackForm = ({
-  track,
-  closeModal,
-}: {
+type EditTrackFormProps = {
   track: ITrackResponse;
   closeModal: () => void;
-}) => {
+};
+
+export const EditTrackForm: FC<EditTrackFormProps> = ({ track, closeModal }) => {
   const [updateTrack, { isLoading }] = useUpdateTrackMutation();
   const { success, error } = useToast();
 

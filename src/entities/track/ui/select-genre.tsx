@@ -1,12 +1,12 @@
+import { FC } from 'react';
 import { useGetGenresQuery } from '@entities/track/model/api';
 
-export const SelectGenre = ({
-  selected = [],
-  onChange,
-}: {
+type SelectGenreProps = {
   selected?: string[];
   onChange: (genres: string[]) => void;
-}) => {
+};
+
+export const SelectGenre: FC<SelectGenreProps> = ({ selected = [], onChange }) => {
   const { data: genres = [] } = useGetGenresQuery();
 
   const handleAdd = (genre: string) => {

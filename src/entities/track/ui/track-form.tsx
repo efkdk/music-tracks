@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { DefaultValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TrackFormSchema, ITrack } from '@entities/track/model/schema';
@@ -6,17 +7,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@shared/ui/input';
 import { Button } from '@shared/ui/button';
 
-export const TrackForm = ({
-  defaultValues,
-  onSubmit,
-  isLoading,
-  mode,
-}: {
+type TrackFormProps = {
   mode: 'create' | 'edit';
   onSubmit: (values: ITrack) => void;
   defaultValues: DefaultValues<ITrack>;
   isLoading?: boolean;
-}) => {
+};
+
+export const TrackForm: FC<TrackFormProps> = ({ defaultValues, onSubmit, isLoading, mode }) => {
   const form = useForm<ITrack>({
     resolver: zodResolver(TrackFormSchema),
     defaultValues,

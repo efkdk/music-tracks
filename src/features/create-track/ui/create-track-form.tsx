@@ -1,10 +1,13 @@
+import { FC } from 'react';
 import { useCreateTrackMutation } from '@features/create-track/model/api';
 import { TrackForm } from '@entities/track';
 import { ITrack } from '@entities/track/model/schema';
 import { useToast } from '@shared/lib/hooks';
 import { getApiErrorMessage } from '@shared/lib/helpers';
 
-export const CreateTrackForm = ({ closeModal }: { closeModal: () => void }) => {
+type CreateTrackFormProps = { closeModal: () => void };
+
+export const CreateTrackForm: FC<CreateTrackFormProps> = ({ closeModal }) => {
   const [createTrack, { isLoading }] = useCreateTrackMutation();
   const { success, error } = useToast();
 

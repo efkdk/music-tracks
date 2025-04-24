@@ -1,15 +1,12 @@
+import { FC, memo } from 'react';
+import { X } from 'lucide-react';
 import { useGetGenresQuery } from '@entities/track/model/api';
 import { Button } from '@shared/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui/select';
-import { X } from 'lucide-react';
 
-export const GenreFilter = ({
-  genre,
-  onChange,
-}: {
-  genre?: string;
-  onChange: (value?: string) => void;
-}) => {
+type GenreFilterProps = { genre?: string; onChange: (value?: string) => void };
+
+export const GenreFilter: FC<GenreFilterProps> = memo(({ genre, onChange }) => {
   const { data: genres } = useGetGenresQuery();
 
   if (!genres) return null;
@@ -38,4 +35,4 @@ export const GenreFilter = ({
       )}
     </Select>
   );
-};
+});

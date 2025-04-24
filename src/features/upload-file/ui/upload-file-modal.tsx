@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { FileAudio } from 'lucide-react';
+import { ITrackResponse } from '@entities/track/model/schema';
 import { UploadFileForm } from '@features/upload-file';
 import { Button } from '@shared/ui/button';
 import {
@@ -10,9 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@shared/ui/dialog';
-import { ITrackResponse } from '@entities/track/model/schema';
 
-export const UploadFileModal = ({ trackId }: { trackId: ITrackResponse['id'] }) => {
+type UploadFileModalProps = { trackId: ITrackResponse['id'] };
+
+export const UploadFileModal: FC<UploadFileModalProps> = ({ trackId }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const close = () => {

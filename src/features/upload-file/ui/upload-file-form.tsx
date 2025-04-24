@@ -1,8 +1,9 @@
-import { Button } from '@shared/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel } from '@shared/ui/form';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from '@shared/ui/input';
 import { useUploadAudioFileMutation } from '@features/upload-file/model/api';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@shared/ui/form';
+import { Input } from '@shared/ui/input';
+import { Button } from '@shared/ui/button';
 import { useToast } from '@shared/lib/hooks';
 import { getApiErrorMessage } from '@shared/lib/helpers';
 
@@ -10,18 +11,17 @@ type UploadFileFormValues = {
   file: FileList;
 };
 
+type UploadFileFormProps = {
+  trackId: string;
+  closeModal: () => void;
+};
+
 // I can't receive these constants from backend, so I hardcoded them.
 const ACCEPTED_AUDIO_TYPES = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/x-wav'];
 const MAX_FILE_SIZE_MB = 10;
 const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024;
 
-export const UploadFileForm = ({
-  trackId,
-  closeModal,
-}: {
-  trackId: string;
-  closeModal: () => void;
-}) => {
+export const UploadFileForm: FC<UploadFileFormProps> = ({ trackId, closeModal }) => {
   const [uploadFile, { isLoading }] = useUploadAudioFileMutation();
   const { success, error } = useToast();
 

@@ -1,3 +1,5 @@
+import { memo, FC } from 'react';
+import { GenreBadge } from '@pages/tracks/ui/genre-badge';
 import { ITrackResponse } from '@entities/track/model/schema';
 import { TrackImage } from '@entities/track';
 import { EditTrackModal } from '@features/edit-track';
@@ -5,9 +7,10 @@ import { DeleteTrackModal } from '@features/delete-track';
 import { UploadFileModal } from '@features/upload-file';
 import { DeleteFileModal } from '@features/delete-file';
 import { PlayButton } from '@features/player/ui/play-button';
-import { GenreBadge } from './genre-badge';
 
-export const TrackItem = ({ track }: { track: ITrackResponse }) => {
+type TrackItemProps = { track: ITrackResponse };
+
+export const TrackItem: FC<TrackItemProps> = memo(({ track }) => {
   return (
     <li>
       <div className="flex gap-4 w-full">
@@ -47,4 +50,4 @@ export const TrackItem = ({ track }: { track: ITrackResponse }) => {
       </div>
     </li>
   );
-};
+});

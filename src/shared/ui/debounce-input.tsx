@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { Input } from '@shared/ui/input';
 import { useDebounce } from '@shared/lib/hooks';
 
@@ -9,13 +9,13 @@ type DebounceInputProps = {
   className?: string;
 } & React.ComponentProps<'input'>;
 
-export const DebounceInput = ({
+export const DebounceInput: FC<DebounceInputProps> = ({
   value,
   onDebouncedChange,
   delay = 500,
   className,
   ...props
-}: DebounceInputProps) => {
+}) => {
   const [inputValue, setInputValue] = useState<string>(value || '');
   const debouncedValue = useDebounce<string>(inputValue, delay);
 

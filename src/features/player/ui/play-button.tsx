@@ -1,10 +1,13 @@
+import { FC } from 'react';
+import { Pause, Play } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@app/store';
 import { ITrackResponse } from '@entities/track/model/schema';
 import { playTrack, pauseTrack } from '@features/player';
 import { Button } from '@shared/ui/button';
-import { Pause, Play } from 'lucide-react';
 
-export const PlayButton = ({ track }: { track: ITrackResponse }) => {
+type PlayButtonProps = { track: ITrackResponse };
+
+export const PlayButton: FC<PlayButtonProps> = ({ track }) => {
   const dispatch = useAppDispatch();
   const { currentTrack, isPlaying } = useAppSelector((state) => state.player);
 

@@ -1,12 +1,9 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui/select';
+import { memo, FC } from 'react';
 
-export const SelectLimit = ({
-  limit,
-  onChange,
-}: {
-  limit: number | undefined;
-  onChange: (limit: number) => void;
-}) => {
+type SelectLimitProps = { limit?: number; onChange: (limit: number) => void };
+
+export const SelectLimit: FC<SelectLimitProps> = memo(({ limit, onChange }) => {
   return (
     <div className="flex items-center gap-2">
       <span>Tracks per page:</span>
@@ -26,4 +23,4 @@ export const SelectLimit = ({
       </Select>
     </div>
   );
-};
+});

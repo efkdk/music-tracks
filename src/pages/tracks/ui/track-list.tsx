@@ -1,7 +1,12 @@
+import { memo, FC } from 'react';
 import { ITrackResponse } from '@entities/track/model/schema';
 import { TrackItem } from '@pages/tracks';
 
-export const TrackList = ({ tracks }: { tracks: ITrackResponse[] }) => {
+type TrackListProps = {
+  tracks: ITrackResponse[];
+};
+
+export const TrackList: FC<TrackListProps> = memo(({ tracks }) => {
   return (
     <ul className="flex flex-col gap-4">
       {tracks.map((track) => (
@@ -9,4 +14,4 @@ export const TrackList = ({ tracks }: { tracks: ITrackResponse[] }) => {
       ))}
     </ul>
   );
-};
+});

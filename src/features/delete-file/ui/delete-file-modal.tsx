@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { FileX, Loader2 } from 'lucide-react';
 import { Button } from '@shared/ui/button';
 import {
@@ -16,7 +16,7 @@ import { getApiErrorMessage } from '@shared/lib/helpers';
 
 type DeleteFileModalProps = Pick<ITrackResponse, 'id' | 'title'>;
 
-export const DeleteFileModal = ({ title, id }: DeleteFileModalProps) => {
+export const DeleteFileModal: FC<DeleteFileModalProps> = ({ title, id }) => {
   const [deleteAudioFileById, { isLoading }] = useDeleteAudioFileMutation();
   const { success, error } = useToast();
 

@@ -1,14 +1,13 @@
+import { FC } from 'react';
 import { ImageWithSkeleton } from '@shared/ui/image-with-skeleton';
 
-export const TrackImage = ({
-  coverImage,
-  title,
-  className,
-}: {
+type TrackImageProps = {
   title: string;
   coverImage?: string;
   className?: string;
-}) => {
+};
+
+export const TrackImage: FC<TrackImageProps> = ({ coverImage, title, className }) => {
   return (
     <ImageWithSkeleton
       src={coverImage || '/default-cover.png'}
