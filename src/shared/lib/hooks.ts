@@ -1,9 +1,23 @@
-import { useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { toast, ToastOptions, TypeOptions } from 'react-toastify';
+
+export const useDebounce = <T>(value: T, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(timerId);
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 const defaultOptions: ToastOptions = {
   position: 'top-right',
-  autoClose: 4000,
+  autoClose: 3000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,

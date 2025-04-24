@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import { AppRouter } from '@app/router/routes';
 import { store } from '@app/store';
-import './styles/global.css';
+import '@app/styles/global.css';
 
 function App() {
   return (

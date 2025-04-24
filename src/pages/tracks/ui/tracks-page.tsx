@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGetTracksQuery } from '@shared/model/api';
 import { CreateTrackModal } from '@features/create-track';
-import { TrackItem, TracksSort, GenreFilter, ArtistFilter, Search } from '@pages/tracks';
+import { TracksSort, GenreFilter, ArtistFilter, Search, TrackList } from '@pages/tracks';
 import type { SortField, SortOrder } from '@pages/tracks/model/schema';
 import { Button } from '@shared/ui/button';
 import { PagePagination } from '@shared/ui/page-pagination';
@@ -61,11 +61,7 @@ export const TracksPage = () => {
 
         {tracks && tracks.length !== 0 && (
           <div className="flex flex-col gap-4">
-            <ul className="flex flex-col gap-4">
-              {tracks.map((track) => (
-                <TrackItem key={track.id} track={track} />
-              ))}
-            </ul>
+            <TrackList tracks={tracks} />
             <PagePagination
               currentPage={page}
               onPageChange={setPage}

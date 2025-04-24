@@ -1,4 +1,4 @@
-import { useCreateTrackMutation } from '@shared/model/api';
+import { useCreateTrackMutation } from '@features/create-track/model/api';
 import { TrackForm } from '@entities/track';
 import { ITrack } from '@entities/track/model/schema';
 import { useToast } from '@shared/lib/hooks';

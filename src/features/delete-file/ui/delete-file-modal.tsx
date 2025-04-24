@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from '@shared/ui/dialog';
 import { ITrackResponse } from '@entities/track/model/schema';
-import { useDeleteAudioFileMutation } from '@shared/model/api';
+import { useDeleteAudioFileMutation } from '@features/delete-file/model/api';
 import { useToast } from '@shared/lib/hooks';
 import { getApiErrorMessage } from '@shared/lib/helpers';
 

@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from '@shared/ui/dialog';
 import { ITrackResponse } from '@entities/track/model/schema';
-import { useDeleteTrackByIdMutation } from '@shared/model/api';
+import { useDeleteTrackByIdMutation } from '@features/delete-track/model/api';
 import { useToast } from '@shared/lib/hooks';
 import { getApiErrorMessage } from '@shared/lib/helpers';
 

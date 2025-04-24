@@ -1,6 +1,4 @@
-import { Input } from '@shared/ui/input';
-import { useEffect, useState } from 'react';
-import { useDebounce } from '../lib/hooks';
+import { DebounceInput } from '@shared/ui/debounce-input';
 
 export const ArtistFilter = ({
   artist,
@@ -9,19 +7,12 @@ export const ArtistFilter = ({
   artist: string | undefined;
   onChange: (value: string) => void;
 }) => {
-  const [value, setValue] = useState<string>(artist || '');
-  const debouncedValue = useDebounce<string>(value, 500);
-
-  useEffect(() => {
-    onChange(debouncedValue);
-  }, [debouncedValue, onChange]);
-
   return (
-    <Input
+    <DebounceInput
       className="w-[8rem] sm:w-[10rem]"
       placeholder="Filter by artist"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
+      value={artist}
+      onDebouncedChange={onChange}
     />
   );
 };

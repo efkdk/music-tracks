@@ -1,6 +1,6 @@
-import { TracksPage } from '@pages/tracks';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { RootLayout } from './layout';
+import { RootLayout } from '@app/router/layout';
+import { TracksPage } from '@pages/tracks';
 import { ErrorPage } from '@pages/error';
 import { NotFoundPage } from '@pages/not-found';
 

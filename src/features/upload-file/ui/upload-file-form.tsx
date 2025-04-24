@@ -2,7 +2,7 @@ import { Button } from '@shared/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@shared/ui/form';
 import { useForm } from 'react-hook-form';
 import { Input } from '@shared/ui/input';
-import { useUploadAudioFileMutation } from '@shared/model/api';
+import { useUploadAudioFileMutation } from '@features/upload-file/model/api';
 import { useToast } from '@shared/lib/hooks';
 import { getApiErrorMessage } from '@shared/lib/helpers';
 

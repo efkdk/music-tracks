@@ -1,5 +1,5 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { IErrorData } from '@entities/track/model/schema';
+import { IErrorData } from '@shared/model/schema';
 
 export function getApiErrorMessage(error: unknown, fallback = 'Something went wrong') {
   let message = fallback;

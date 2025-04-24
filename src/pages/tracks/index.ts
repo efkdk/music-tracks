@@ -1,5 +1,6 @@
 export { TracksPage } from './ui/tracks-page';
 
+export { TrackList } from './ui/track-list';
 export { TrackItem } from './ui/track-item';
 
 export { GenreFilter } from './ui/genre-filter';

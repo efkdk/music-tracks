@@ -1,4 +1,4 @@
-import { useUpdateTrackMutation } from '@shared/model/api';
+import { useUpdateTrackMutation } from '@features/edit-track/model/api';
 import { TrackForm } from '@entities/track';
 import { ITrack, ITrackResponse } from '@entities/track/model/schema';
 import { useToast } from '@shared/lib/hooks';
