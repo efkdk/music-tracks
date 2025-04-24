@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import { useGetTracksQuery } from '@shared/model/api';
+import { ArrowDown01, FunnelPlus, HeadphoneOff, Music } from 'lucide-react';
 import { CreateTrackModal } from '@features/create-track';
-import { TracksSort, GenreFilter, ArtistFilter, Search, TrackList } from '@pages/tracks';
+import {
+  TracksSort,
+  GenreFilter,
+  ArtistFilter,
+  Search,
+  TrackList,
+  SelectLimit,
+} from '@pages/tracks';
 import type { SortField, SortOrder } from '@pages/tracks/model/schema';
 import { Button } from '@shared/ui/button';
 import { PagePagination } from '@shared/ui/page-pagination';
-import { ArrowDown01, FunnelPlus, HeadphoneOff, Music } from 'lucide-react';
 import { Loader } from '@shared/ui/loader';
+import { useGetTracksQuery } from '@shared/model/api';
 
 export const TracksPage = () => {
   const [page, setPage] = useState<number>(1);
@@ -14,6 +21,7 @@ export const TracksPage = () => {
   const [genre, setGenre] = useState<string>();
   const [artist, setArtist] = useState<string>();
   const [search, setSearch] = useState<string>();
+  const [limit, setLimit] = useState<number>(10);
 
   const {
     data: { data: tracks, meta } = {},
@@ -22,6 +30,7 @@ export const TracksPage = () => {
     refetch,
   } = useGetTracksQuery({
     page,
+    limit,
     sort: sort?.by,
     order: sort?.order,
     genre,
@@ -41,15 +50,19 @@ export const TracksPage = () => {
 
       <Search search={search} onChange={setSearch} />
 
-      <div className="flex items-center self-end gap-2">
-        <ArrowDown01 />
-        <TracksSort sortOptions={sort} onChange={setSort} />
-      </div>
+      <div className="flex flex-col gap-2 items-end">
+        <div className="flex items-center gap-2">
+          <ArrowDown01 />
+          <TracksSort sortOptions={sort} onChange={setSort} />
+        </div>
 
-      <div className="flex items-center self-end flex-wrap gap-2">
-        <FunnelPlus />
-        <GenreFilter genre={genre} onChange={setGenre} />
-        <ArtistFilter artist={artist} onChange={setArtist} />
+        <div className="flex items-center  flex-wrap gap-2">
+          <FunnelPlus />
+          <GenreFilter genre={genre} onChange={setGenre} />
+          <ArtistFilter artist={artist} onChange={setArtist} />
+        </div>
+
+        <SelectLimit limit={limit} onChange={setLimit} />
       </div>
 
       <div className="relative">
