@@ -7,12 +7,14 @@ import { DeleteTrackModal } from '@features/delete-track';
 import { UploadFileModal } from '@features/upload-file';
 import { DeleteFileModal } from '@features/delete-file';
 import { PlayButton } from '@features/player/ui/play-button';
+import { DeleteCheckbox } from '@pages/tracks';
 
 type TrackItemProps = { track: ITrackResponse };
 
 export const TrackItem: FC<TrackItemProps> = memo(({ track }) => {
   return (
-    <li>
+    <li className="flex items-center gap-2">
+      <DeleteCheckbox trackId={track.id} className="flex-grow-0 flex-shrink-0 w-4 h-4" />
       <div className="flex gap-4 w-full">
         <TrackImage className="w-24 h-24 sm:w-32 sm:h-32" {...track} />
         <div className="flex flex-col w-full gap-4">

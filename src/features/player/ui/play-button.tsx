@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Pause, Play } from 'lucide-react';
-import { useAppDispatch, useAppSelector } from '@app/store';
+import { useAppDispatch, useAppSelector } from '@shared/lib/hooks';
 import { ITrackResponse } from '@entities/track/model/schema';
 import { playTrack, pauseTrack } from '@features/player';
 import { Button } from '@shared/ui/button';

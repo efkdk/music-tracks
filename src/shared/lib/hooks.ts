@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { toast, ToastOptions, TypeOptions } from 'react-toastify';
+import { AppDispatch, RootState } from '@app/store';
 
 export const useDebounce = <T>(value: T, delay: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -54,3 +56,6 @@ export const useToast = () => {
 
   return { showToast, success, error, info, warning };
 };
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppDispatch = () => useDispatch<AppDispatch>();

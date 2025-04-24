@@ -1,11 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { playerReducer } from '@features/player';
+import { selectedTracksReducer } from '@features/bulk-delete';
 import { tracksApi } from '@shared/model/api';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 const rootReducer = combineReducers({
   [tracksApi.reducerPath]: tracksApi.reducer,
   player: playerReducer,
+  selectedTracks: selectedTracksReducer,
 });
 
 export const store = configureStore({
@@ -14,8 +15,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(tracksApi.middleware),
 });
 
-type RootState = ReturnType<typeof store.getState>;
-type AppDispatch = typeof store.dispatch;
-
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

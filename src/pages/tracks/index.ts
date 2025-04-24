@@ -11,3 +11,5 @@ export { SelectLimit } from './ui/select-limit';
 
 export { TracksFilters } from './ui/tracks-filters';
 export { TracksHeader } from './ui/tracks-header';
+
+export { DeleteCheckbox } from './ui/delete-checkbox';

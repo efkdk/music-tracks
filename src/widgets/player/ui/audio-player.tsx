@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '@app/store';
+import { useAppSelector, useAppDispatch } from '@shared/lib/hooks';
 import {
   pauseTrack,
   resumeTrack,
