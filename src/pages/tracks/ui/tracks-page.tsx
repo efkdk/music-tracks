@@ -1,69 +1,64 @@
-import { useState } from 'react';
-import { ArrowDown01, FunnelPlus, HeadphoneOff, Music } from 'lucide-react';
-import { CreateTrackModal } from '@features/create-track';
-import {
-  TracksSort,
-  GenreFilter,
-  ArtistFilter,
-  Search,
-  TrackList,
-  SelectLimit,
-} from '@pages/tracks';
-import type { SortField, SortOrder } from '@pages/tracks/model/schema';
+import { useMemo } from 'react';
+import { HeadphoneOff } from 'lucide-react';
+import { TracksFilters, TrackList, TracksHeader } from '@pages/tracks';
+import { useTracksParams } from '@pages/tracks/lib/hooks';
 import { Button } from '@shared/ui/button';
 import { PagePagination } from '@shared/ui/page-pagination';
 import { Loader } from '@shared/ui/loader';
 import { useGetTracksQuery } from '@shared/model/api';
 
 export const TracksPage = () => {
-  const [page, setPage] = useState<number>(1);
-  const [sort, setSort] = useState<{ by: SortField; order: SortOrder }>();
-  const [genre, setGenre] = useState<string>();
-  const [artist, setArtist] = useState<string>();
-  const [search, setSearch] = useState<string>();
-  const [limit, setLimit] = useState<number>(10);
+  const {
+    page,
+    setPage,
+    sort,
+    setSort,
+    genre,
+    setGenre,
+    artist,
+    setArtist,
+    search,
+    setSearch,
+    limit,
+    setLimit,
+  } = useTracksParams();
+
+  const queryParams = useMemo(
+    () => ({
+      page,
+      limit,
+      sort: sort?.by,
+      order: sort?.order,
+      genre,
+      artist,
+      search,
+    }),
+    [page, limit, sort, genre, artist, search],
+  );
 
   const {
     data: { data: tracks, meta } = {},
     error,
     isFetching,
     refetch,
-  } = useGetTracksQuery({
-    page,
-    limit,
-    sort: sort?.by,
-    order: sort?.order,
-    genre,
-    artist,
-    search,
-  });
+  } = useGetTracksQuery(queryParams);
 
   return (
     <div className="container flex flex-col gap-4 py-4">
-      <div className="flex flex-wrap justify-between items-center gap-4 border-b border-gray-200 pb-4">
-        <div className="flex items-center gap-2">
-          <Music className="flex-shrink-0 flex-grow-0 w-[1.5rem] h-[1.5rem]" />
-          <h1 className="text-3xl font-bold">Music Tracks</h1>
-        </div>
-        <CreateTrackModal />
-      </div>
+      <TracksHeader />
 
-      <Search search={search} onChange={setSearch} />
-
-      <div className="flex flex-col gap-2 items-end">
-        <div className="flex items-center gap-2">
-          <ArrowDown01 />
-          <TracksSort sortOptions={sort} onChange={setSort} />
-        </div>
-
-        <div className="flex items-center  flex-wrap gap-2">
-          <FunnelPlus />
-          <GenreFilter genre={genre} onChange={setGenre} />
-          <ArtistFilter artist={artist} onChange={setArtist} />
-        </div>
-
-        <SelectLimit limit={limit} onChange={setLimit} />
-      </div>
+      <TracksFilters
+        search={search}
+        onSearchChange={setSearch}
+        genre={genre}
+        onGenreChange={setGenre}
+        artist={artist}
+        onArtistChange={setArtist}
+        sort={sort}
+        onSortChange={setSort}
+        limit={limit}
+        onLimitChange={setLimit}
+      />
 
       <div className="relative">
         {isFetching && (

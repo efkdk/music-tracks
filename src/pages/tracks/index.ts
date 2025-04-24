@@ -8,3 +8,6 @@ export { ArtistFilter } from './ui/artist-filter';
 export { Search } from './ui/search';
 export { TracksSort } from './ui/tracks-sort';
 export { SelectLimit } from './ui/select-limit';
+
+export { TracksFilters } from './ui/tracks-filters';
+export { TracksHeader } from './ui/tracks-header';

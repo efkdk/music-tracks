@@ -6,7 +6,7 @@ export const ArtistFilter = ({
   artist,
   onChange,
 }: {
-  artist: string | undefined;
+  artist?: string;
   onChange: (value?: string) => void;
 }) => {
   return (

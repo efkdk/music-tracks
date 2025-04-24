@@ -7,7 +7,7 @@ export const GenreFilter = ({
   genre,
   onChange,
 }: {
-  genre: string | undefined;
+  genre?: string;
   onChange: (value?: string) => void;
 }) => {
   const { data: genres } = useGetGenresQuery();
