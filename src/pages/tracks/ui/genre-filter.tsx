@@ -12,7 +12,7 @@ export const GenreFilter = ({ onChange }: { onChange: (value: string) => void })
         onChange(value);
       }}
     >
-      <SelectTrigger className="w-[10rem]">
+      <SelectTrigger className="w-[7rem] sm:w-[10rem]">
         <SelectValue placeholder="Filter by..." />
       </SelectTrigger>
       <SelectContent>

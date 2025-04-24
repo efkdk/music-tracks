@@ -12,10 +12,13 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@shared/ui/button';
 import { Slider } from '@shared/ui/slider';
-import { Audio } from '@entities/track';
+import { Audio, TrackImage } from '@entities/track';
+import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
+import { formatTime } from '@widgets/player/lib/helpers';
 
 export const AudioPlayer = () => {
   const { currentTrack, isPlaying, volume, progress } = useAppSelector((state) => state.player);
+  const [prevVolume, setPrevVolume] = useState<number>(0);
 
   const isLastTrack = useAppSelector(isLastTrackSelector);
   const isFirstTrack = useAppSelector(isFirstTrackSelector);
@@ -64,7 +67,7 @@ export const AudioPlayer = () => {
   if (!currentTrack || !currentTrack.audioFile) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow flex flex-col gap-2 z-50 h-[6rem]">
+    <div className="fixed bottom-0 left-0 right-0 p-4 flex flex-col gap-6 z-50 h-[8rem] rounded-xl border text-card-foreground border-t shadow-lg bg-background/80 backdrop-blur-sm">
       <Audio
         ref={audioRef}
         fileName={currentTrack.audioFile}
@@ -79,38 +82,70 @@ export const AudioPlayer = () => {
         }}
       />
       <div className="flex justify-between items-center">
-        <div className="text-sm font-semibold">
-          {currentTrack.title} — {currentTrack.artist}
+        <div className="flex gap-2 items-center">
+          <TrackImage
+            className="w-12 h-12"
+            title={currentTrack.title}
+            coverImage={currentTrack.coverImage}
+          />
+          <div>
+            <p className="font-bold">{currentTrack.title}</p>
+            <span> — </span>
+            <span className="font-semibold text-gray-500">{currentTrack.artist}</span>
+          </div>
         </div>
+
         <div className="flex gap-2">
           <Button disabled={isFirstTrack} onClick={() => dispatch(playPrevTrack())}>
-            ⏮
+            <SkipBack />
           </Button>
-          <Button onClick={() => dispatch(isPlaying ? pauseTrack() : resumeTrack())}>
-            {isPlaying ? '⏸' : '▶️'}
+          <Button
+            className="justify-self-center"
+            onClick={() => dispatch(isPlaying ? pauseTrack() : resumeTrack())}
+          >
+            {isPlaying ? <Pause /> : <Play />}
           </Button>
           <Button disabled={isLastTrack} onClick={() => dispatch(playNextTrack())}>
-            ⏭
+            <SkipForward />
           </Button>
         </div>
-        <Slider
-          defaultValue={[volume]}
-          max={1}
-          step={0.01}
-          onValueChange={handleVolumeChange}
-          className="w-[150px]"
-        />
+
+        <div className="flex gap-2">
+          <Button
+            onClick={() => {
+              if (volume !== 0) {
+                setPrevVolume(volume);
+                dispatch(setVolume(0));
+              } else {
+                dispatch(setVolume(prevVolume));
+              }
+            }}
+          >
+            {volume !== 0 ? <Volume2 /> : <VolumeX />}
+          </Button>
+          <Slider
+            value={[volume]}
+            max={1}
+            step={0.01}
+            onValueChange={handleVolumeChange}
+            className="w-[150px]"
+          />
+        </div>
       </div>
-      <Slider
-        value={[progress]}
-        max={audioRef.current?.duration || 100}
-        onValueChange={(val) => {
-          if (audioRef.current) {
-            audioRef.current.currentTime = val[0];
-            dispatch(setProgress(val[0]));
-          }
-        }}
-      />
+      <div className="flex items-center gap-4">
+        <span className="font-semibold">{formatTime(progress)}</span>
+        <Slider
+          value={[progress]}
+          max={audioRef.current?.duration || 100}
+          onValueChange={(val) => {
+            if (audioRef.current) {
+              audioRef.current.currentTime = val[0];
+              dispatch(setProgress(val[0]));
+            }
+          }}
+        />
+        <span className="font-semibold">{formatTime(audioRef.current?.duration)}</span>
+      </div>
     </div>
   );
 };

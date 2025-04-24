@@ -1,11 +1,11 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui/select';
 import type { SortField, SortOrder, TracksSortProps } from '@pages/tracks/model/schema';
 import { Button } from '@shared/ui/button';
+import { X } from 'lucide-react';
 
 export const TracksSort = ({ sortOptions, onChange }: TracksSortProps) => {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <p>Sorting:</p>
       <Select
         onValueChange={(val) => {
           onChange({
@@ -15,7 +15,7 @@ export const TracksSort = ({ sortOptions, onChange }: TracksSortProps) => {
         }}
         value={sortOptions?.by || ''}
       >
-        <SelectTrigger className="w-[10rem]">
+        <SelectTrigger className="w-[7rem] sm:w-[10rem]">
           <SelectValue placeholder="Sort by..." />
         </SelectTrigger>
         <SelectContent>
@@ -35,7 +35,7 @@ export const TracksSort = ({ sortOptions, onChange }: TracksSortProps) => {
         }}
         value={sortOptions?.order || ''}
       >
-        <SelectTrigger className="w-[10rem]">
+        <SelectTrigger className="w-[7rem] sm:w-[10rem]">
           <SelectValue placeholder="Sort order..." />
         </SelectTrigger>
         <SelectContent>
@@ -46,7 +46,7 @@ export const TracksSort = ({ sortOptions, onChange }: TracksSortProps) => {
 
       {sortOptions && (
         <Button onClick={() => onChange()} variant="destructive">
-          Disable Sorting
+          <X />
         </Button>
       )}
     </div>

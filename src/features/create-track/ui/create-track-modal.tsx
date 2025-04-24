@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from '@shared/ui/dialog';
 import { CreateTrackForm } from '@features/create-track';
+import { Plus } from 'lucide-react';
 
 export const CreateTrackModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -18,7 +19,10 @@ export const CreateTrackModal = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="w-fit">Create a track</Button>
+        <Button className="w-fit">
+          <Plus />
+          <p>Create a new track</p>
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

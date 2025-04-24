@@ -4,7 +4,7 @@ import { AudioPlayer } from '@widgets/player/ui/audio-player';
 
 export const RootLayout = () => {
   return (
-    <div className="relative pb-[6.25rem]">
+    <div className="relative pb-[6rem]">
       <AudioPlayer />
       <Outlet />
       <ToastContainer />

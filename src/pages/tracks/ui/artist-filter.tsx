@@ -16,5 +16,12 @@ export const ArtistFilter = ({
     onChange(debouncedValue);
   }, [debouncedValue, onChange]);
 
-  return <Input placeholder="Artist" value={value} onChange={(e) => setValue(e.target.value)} />;
+  return (
+    <Input
+      className="w-[8rem] sm:w-[10rem]"
+      placeholder="Filter by artist"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
 };
