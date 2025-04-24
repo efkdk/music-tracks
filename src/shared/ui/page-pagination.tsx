@@ -22,9 +22,10 @@ export const PagePagination: FC<PagePaginationProps> = ({
   if (!totalPages || totalPages <= 1) return null;
 
   return (
-    <Pagination>
+    <Pagination data-testid="pagination">
       <PaginationContent>
         <PaginationPrevious
+          data-testid="pagination-prev"
           onClick={() => onPageChange(currentPage - 1 >= 1 ? currentPage - 1 : 1)}
         />
         {Array(totalPages)
@@ -40,6 +41,7 @@ export const PagePagination: FC<PagePaginationProps> = ({
             </PaginationItem>
           ))}
         <PaginationNext
+          data-testid="pagination-next"
           onClick={() => onPageChange(currentPage + 1 <= totalPages ? currentPage + 1 : totalPages)}
         />
       </PaginationContent>

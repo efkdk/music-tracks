@@ -13,6 +13,7 @@ export const GenreFilter: FC<GenreFilterProps> = memo(({ genre, onChange }) => {
 
   return (
     <Select
+      data-testid="filter-genre"
       value={genre || ''}
       onValueChange={(value) => {
         onChange(value);

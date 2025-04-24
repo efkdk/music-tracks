@@ -9,6 +9,7 @@ export const ArtistFilter: FC<ArtistFilterProps> = memo(({ artist, onChange }) =
   return (
     <div className="flex gap-2 items-center">
       <DebounceInput
+        data-testid="filter-artist"
         className="w-[8rem] sm:w-[10rem]"
         placeholder="Filter by artist"
         value={artist}

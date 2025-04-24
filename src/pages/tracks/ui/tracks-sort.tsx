@@ -8,6 +8,7 @@ export const TracksSort: FC<TracksSortProps> = memo(({ sortOptions, onChange }) 
   return (
     <div className="flex flex-wrap items-center gap-2">
       <Select
+        data-testid="sort-select"
         onValueChange={(val) => {
           onChange({
             by: val as SortField,

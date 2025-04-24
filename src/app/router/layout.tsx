@@ -7,7 +7,7 @@ export const RootLayout = () => {
     <div className="relative pb-[10rem] sm:pb-[8rem]">
       <AudioPlayer />
       <Outlet />
-      <ToastContainer />
+      <ToastContainer data-testid="toast-container" />
     </div>
   );
 };

@@ -29,8 +29,14 @@ export const BulkDeleteButtons: FC<BulkDeleteButtonsProps> = ({ tracks }) => {
     <div className="flex flex-col gap-2 self-end">
       <p className="text-right border-b border-gray-200 pb-2 font-semibold">Bulk Delete</p>
       <div className="flex gap-2">
-        <Button onClick={handleSelectAll}>Select All</Button>
-        <Button variant="destructive" onClick={() => setIsModal(true)}>
+        <Button data-testid="select-all" onClick={handleSelectAll}>
+          Select All
+        </Button>
+        <Button
+          data-testid="bulk-delete-button"
+          variant="destructive"
+          onClick={() => setIsModal(true)}
+        >
           Delete Selected ({selectedIds.length})
         </Button>
         <Button onClick={handleClear}>Clear</Button>

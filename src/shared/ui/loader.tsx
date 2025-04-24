@@ -3,6 +3,7 @@ import { Music } from 'lucide-react';
 export function Loader({ className }: { className?: string }) {
   return (
     <div
+      data-testid="loading-tracks"
       className={`flex flex-col items-center justify-center min-h-[400px] animate-pulse ${className ? className : ''}`}
     >
       <div className="relative w-16 h-16">

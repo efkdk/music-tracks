@@ -17,9 +17,9 @@ export const CreateTrackModal = () => {
   const close = () => setIsOpen(false);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog data-testid="confirm-dialog" open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="w-fit">
+        <Button data-testid="create-track-button" className="w-fit">
           <Plus />
           <p>Create a new track</p>
         </Button>

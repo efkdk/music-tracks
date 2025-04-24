@@ -22,7 +22,11 @@ export const TrackForm: FC<TrackFormProps> = ({ defaultValues, onSubmit, isLoadi
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full">
+      <form
+        data-testid="track-form"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 w-full"
+      >
         <FormField
           control={form.control}
           name="title"
@@ -30,9 +34,9 @@ export const TrackForm: FC<TrackFormProps> = ({ defaultValues, onSubmit, isLoadi
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Track title..." {...field} />
+                <Input data-testid="input-title" placeholder="Track title..." {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage data-testid="error-title" />
             </FormItem>
           )}
         />
@@ -43,9 +47,9 @@ export const TrackForm: FC<TrackFormProps> = ({ defaultValues, onSubmit, isLoadi
             <FormItem>
               <FormLabel>Album</FormLabel>
               <FormControl>
-                <Input placeholder="Album title..." {...field} />
+                <Input data-testid="input-album" placeholder="Album title..." {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage data-testid="error-album" />
             </FormItem>
           )}
         />
@@ -56,9 +60,9 @@ export const TrackForm: FC<TrackFormProps> = ({ defaultValues, onSubmit, isLoadi
             <FormItem>
               <FormLabel>Artist</FormLabel>
               <FormControl>
-                <Input placeholder="Artist name..." {...field} />
+                <Input data-testid="input-artist" placeholder="Artist name..." {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage data-testid="error-artist" />
             </FormItem>
           )}
         />
@@ -69,9 +73,13 @@ export const TrackForm: FC<TrackFormProps> = ({ defaultValues, onSubmit, isLoadi
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <Input placeholder="Provide url for cover image..." {...field} />
+                <Input
+                  data-testid="input-cover-image"
+                  placeholder="Provide url for cover image..."
+                  {...field}
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage data-testid="error-coverImage" />
             </FormItem>
           )}
         />
@@ -82,14 +90,24 @@ export const TrackForm: FC<TrackFormProps> = ({ defaultValues, onSubmit, isLoadi
             <FormItem>
               <FormLabel htmlFor="select-genre">Genres</FormLabel>
               <FormControl>
-                <SelectGenre selected={field.value} onChange={field.onChange} />
+                <SelectGenre
+                  data-testid="genre-selector"
+                  selected={field.value}
+                  onChange={field.onChange}
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage data-testid="error-genre" />
             </FormItem>
           )}
         />
 
-        <Button type="submit" size="lg" disabled={isLoading} className="w-fit self-end">
+        <Button
+          data-testid="submit-button"
+          type="submit"
+          size="lg"
+          disabled={isLoading}
+          className="w-fit self-end"
+        >
           {isLoading
             ? mode === 'create'
               ? 'Creating...'

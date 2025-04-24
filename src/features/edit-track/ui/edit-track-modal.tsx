@@ -20,9 +20,9 @@ export const EditTrackModal: FC<EditTrackModalProps> = ({ track }) => {
   const close = () => setIsOpen(false);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog data-testid="confirm-dialog" open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-fit">
+        <Button data-testid={`edit-track-${track.id}`} variant="outline" className="w-fit">
           <Edit2 />
         </Button>
       </DialogTrigger>

@@ -34,9 +34,9 @@ export const DeleteTrackModal: FC<DeleteTrackModalProps> = ({ title, id }) => {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog data-testid="confirm-dialog" open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive" className="w-fit">
+        <Button data-testid={`delete-track-${id}`} variant="destructive" className="w-fit">
           <Trash2 />
         </Button>
       </DialogTrigger>
@@ -50,10 +50,15 @@ export const DeleteTrackModal: FC<DeleteTrackModalProps> = ({ title, id }) => {
           </DialogDescription>
         </DialogHeader>
         <div className="flex gap-2 self-end">
-          <Button onClick={() => setIsOpen(false)} variant="outline">
+          <Button data-testid="cancel-delete" onClick={() => setIsOpen(false)} variant="outline">
             Cancel
           </Button>
-          <Button onClick={handleDelete} variant="destructive" disabled={isLoading}>
+          <Button
+            data-testid="confirm-delete"
+            onClick={handleDelete}
+            variant="destructive"
+            disabled={isLoading}
+          >
             {isLoading ? (
               <Loader2 className="animate-spin size-4 mr-2" />
             ) : (

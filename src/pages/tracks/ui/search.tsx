@@ -9,6 +9,7 @@ export const Search: FC<SearchProps> = memo(({ search, onChange }) => {
     <div className="relative">
       <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
       <DebounceInput
+        data-testid="search-input"
         placeholder="Search by title, artist or album..."
         value={search}
         className="pl-9 w-full"

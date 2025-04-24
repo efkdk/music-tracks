@@ -13,18 +13,29 @@ type TrackItemProps = { track: ITrackResponse };
 
 export const TrackItem: FC<TrackItemProps> = memo(({ track }) => {
   return (
-    <li className="flex items-center gap-2">
-      <DeleteCheckbox trackId={track.id} className="flex-grow-0 flex-shrink-0 w-4 h-4" />
+    <li data-testid={`track-item-${track.id}`} className="flex items-center gap-2">
+      <DeleteCheckbox
+        data-testid={`track-checkbox-${track.id}`}
+        trackId={track.id}
+        className="flex-grow-0 flex-shrink-0 w-4 h-4"
+      />
       <div className="flex gap-4 w-full">
         <TrackImage className="w-24 h-24 sm:w-32 sm:h-32" {...track} />
         <div className="flex flex-col w-full gap-4">
           <div className="flex justify-between w-full">
             <div>
-              <span className="text-gray-500 font-medium">
+              <span
+                data-testid={`track-item-${track.id}-artist`}
+                className="text-gray-500 font-medium"
+              >
                 {track.artist}
-                {track.album && ' | Album - ' + track.album}
               </span>
-              <h3 className="text-lg font-bold">{track.title}</h3>
+              {track.album && (
+                <span className="text-gray-500 font-medium">{' | Album - ' + track.album}</span>
+              )}
+              <h3 data-testid={`track-item-${track.id}-title`} className="text-lg font-bold">
+                {track.title}
+              </h3>
             </div>
             <div className="flex flex-col gap-4">
               {track.genres && (

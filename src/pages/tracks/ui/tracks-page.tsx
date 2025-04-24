@@ -69,7 +69,7 @@ export const TracksPage = () => {
 
         {tracks && tracks.length !== 0 && (
           <div className="flex flex-col gap-4">
-            <TrackList tracks={tracks} />
+            <TrackList data-loading={isFetching} tracks={tracks} />
             <PagePagination
               currentPage={page}
               onPageChange={setPage}

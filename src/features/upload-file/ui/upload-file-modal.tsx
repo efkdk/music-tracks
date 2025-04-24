@@ -22,7 +22,7 @@ export const UploadFileModal: FC<UploadFileModalProps> = ({ trackId }) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog data-testid="confirm-dialog" open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="w-fit">
           <FileAudio />

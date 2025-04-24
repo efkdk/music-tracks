@@ -83,7 +83,12 @@ export const UploadFileForm: FC<UploadFileFormProps> = ({ trackId, closeModal })
             </FormItem>
           )}
         />
-        <Button className="self-end" type="submit" disabled={isLoading}>
+        <Button
+          data-testid={`upload-track-${trackId}`}
+          className="self-end"
+          type="submit"
+          disabled={isLoading}
+        >
           {isLoading ? 'Uploading...' : 'Upload'}
         </Button>
       </form>

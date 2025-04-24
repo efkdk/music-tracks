@@ -67,7 +67,10 @@ export const AudioPlayer = () => {
   if (!currentTrack || !currentTrack.audioFile) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 flex flex-col gap-4 sm:gap-6 z-50 h-[10rem] sm:h-[8rem] rounded-xl border text-card-foreground border-t shadow-lg bg-background/80 backdrop-blur-sm">
+    <div
+      data-testid={`audio-player-${currentTrack.id}`}
+      className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 flex flex-col gap-4 sm:gap-6 z-50 h-[10rem] sm:h-[8rem] rounded-xl border text-card-foreground border-t shadow-lg bg-background/80 backdrop-blur-sm"
+    >
       <Audio
         ref={audioRef}
         fileName={currentTrack.audioFile}
@@ -99,6 +102,23 @@ export const AudioPlayer = () => {
           <Button disabled={isFirstTrack} onClick={() => dispatch(playPrevTrack())}>
             <SkipBack />
           </Button>
+          {isPlaying ? (
+            <Button
+              data-testid={`play-button-${currentTrack.id}`}
+              className="justify-self-center"
+              onClick={() => dispatch(pauseTrack())}
+            >
+              <Pause />
+            </Button>
+          ) : (
+            <Button
+              data-testid={`pause-button-${currentTrack.id}`}
+              className="justify-self-center"
+              onClick={() => dispatch(resumeTrack())}
+            >
+              <Play />
+            </Button>
+          )}
           <Button
             className="justify-self-center"
             onClick={() => dispatch(isPlaying ? pauseTrack() : resumeTrack())}
@@ -135,6 +155,7 @@ export const AudioPlayer = () => {
       <div className="flex items-center gap-4">
         <span className="font-semibold">{formatTime(progress)}</span>
         <Slider
+          data-testid={`audio-progress-${currentTrack.id}`}
           value={[progress]}
           max={audioRef.current?.duration || 100}
           onValueChange={(val) => {
