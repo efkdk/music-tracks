@@ -58,3 +58,7 @@ export interface ITracksParams {
   artist?: string;
   search?: string;
 }
+
+export interface IErrorData {
+  error: string;
+}

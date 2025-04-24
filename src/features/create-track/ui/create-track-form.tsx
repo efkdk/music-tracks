@@ -1,9 +1,12 @@
 import { useCreateTrackMutation } from '@shared/model/api';
 import { TrackForm } from '@entities/track';
 import { ITrack } from '@entities/track/model/schema';
+import { useToast } from '@shared/lib/hooks';
+import { getApiErrorMessage } from '@shared/lib/helpers';
 
 export const CreateTrackForm = ({ closeModal }: { closeModal: () => void }) => {
   const [createTrack, { isLoading }] = useCreateTrackMutation();
+  const { success, error } = useToast();
 
   const defaultValues = {
     title: '',
@@ -15,10 +18,12 @@ export const CreateTrackForm = ({ closeModal }: { closeModal: () => void }) => {
 
   async function onSubmit(values: ITrack) {
     try {
-      await createTrack(values).unwrap();
+      const response = await createTrack(values).unwrap();
       closeModal();
+      success(`Created new track: ${response.title}`);
     } catch (e) {
-      console.error('Failed to create new track', e);
+      const errorMsg = getApiErrorMessage(e);
+      error(`Failed to create new track: ${errorMsg}`);
     }
   }
 

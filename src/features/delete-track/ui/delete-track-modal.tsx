@@ -11,21 +11,25 @@ import {
 } from '@shared/ui/dialog';
 import { ITrackResponse } from '@entities/track/model/schema';
 import { useDeleteTrackByIdMutation } from '@shared/model/api';
+import { useToast } from '@shared/lib/hooks';
+import { getApiErrorMessage } from '@shared/lib/helpers';
 
 type DeleteTrackModalProps = Pick<ITrackResponse, 'id' | 'title'>;
 
 export const DeleteTrackModal = ({ title, id }: DeleteTrackModalProps) => {
   const [deleteTrackById, { isLoading }] = useDeleteTrackByIdMutation();
+  const { success, error } = useToast();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   async function handleDelete() {
     try {
       await deleteTrackById(id).unwrap();
-      console.log('successfully deleted');
       setIsOpen(false);
+      success(`Deleted ${title} track`);
     } catch (e) {
-      console.error('Failed to delete track:', e);
+      const errorMsg = getApiErrorMessage(e);
+      error(`Failed to delete ${title} track: ${errorMsg}`);
     }
   }
 

@@ -11,21 +11,25 @@ import {
 } from '@shared/ui/dialog';
 import { ITrackResponse } from '@entities/track/model/schema';
 import { useDeleteAudioFileMutation } from '@shared/model/api';
+import { useToast } from '@shared/lib/hooks';
+import { getApiErrorMessage } from '@shared/lib/helpers';
 
 type DeleteFileModalProps = Pick<ITrackResponse, 'id' | 'title'>;
 
 export const DeleteFileModal = ({ title, id }: DeleteFileModalProps) => {
   const [deleteAudioFileById, { isLoading }] = useDeleteAudioFileMutation();
+  const { success, error } = useToast();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   async function handleDelete() {
     try {
-      await deleteAudioFileById(id).unwrap();
-      console.log('file successfully deleted');
+      const response = await deleteAudioFileById(id).unwrap();
       setIsOpen(false);
+      success(`Deleted ${response.title} track audio file.`);
     } catch (e) {
-      console.error('Failed to delete file:', e);
+      const errorMsg = getApiErrorMessage(e);
+      error(`Failed to delete audio file: ${errorMsg}`);
     }
   }
 

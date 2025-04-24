@@ -3,6 +3,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@shared/ui/fo
 import { useForm } from 'react-hook-form';
 import { Input } from '@shared/ui/input';
 import { useUploadAudioFileMutation } from '@shared/model/api';
+import { useToast } from '@shared/lib/hooks';
+import { getApiErrorMessage } from '@shared/lib/helpers';
 
 type UploadFileFormValues = {
   file: FileList;
@@ -21,6 +23,7 @@ export const UploadFileForm = ({
   closeModal: () => void;
 }) => {
   const [uploadFile, { isLoading }] = useUploadAudioFileMutation();
+  const { success, error } = useToast();
 
   const form = useForm<UploadFileFormValues>();
   const {
@@ -36,14 +39,16 @@ export const UploadFileForm = ({
     formData.append('file', file);
 
     try {
-      await uploadFile({
+      const response = await uploadFile({
         id: trackId,
         body: formData,
       }).unwrap();
 
       closeModal();
-    } catch (error) {
-      console.error('Failed to upload file:', error);
+      success(`Uploaded audio file for ${response.title} track`);
+    } catch (e) {
+      const errorMsg = getApiErrorMessage(e);
+      error(`Failed to upload audio file for track: ${errorMsg}`);
     }
   }
 
