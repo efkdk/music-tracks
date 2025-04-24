@@ -1,9 +1,15 @@
 import { TracksPage } from '@pages/tracks';
 import { createBrowserRouter, RouterProvider } from 'react-router';
+import { RootLayout } from './layout';
 
 const router = createBrowserRouter([
-  { path: '/', element: <TracksPage /> },
-  { path: '/tracks', element: <TracksPage /> },
+  {
+    element: <RootLayout />,
+    children: [
+      { path: '/', element: <TracksPage /> },
+      { path: '/tracks', element: <TracksPage /> },
+    ],
+  },
 ]);
 
 export const AppRouter = () => {

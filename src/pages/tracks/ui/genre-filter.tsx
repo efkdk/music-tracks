@@ -1,4 +1,4 @@
-import { useGetGenresQuery } from '@entities/track/model/api';
+import { useGetGenresQuery } from '@shared/model/api';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui/select';
 
 export const GenreFilter = ({ onChange }: { onChange: (value: string) => void }) => {

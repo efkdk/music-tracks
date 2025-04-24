@@ -1,4 +1,4 @@
-import { useCreateTrackMutation } from '@entities/track/model/api';
+import { useCreateTrackMutation } from '@shared/model/api';
 import { TrackForm } from '@entities/track';
 import { ITrack } from '@entities/track/model/schema';
 

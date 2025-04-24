@@ -1,9 +1,11 @@
 import { ITrackResponse } from '@entities/track/model/schema';
-import { Audio, TrackImage } from '@entities/track';
+import { TrackImage } from '@entities/track';
 import { EditTrackModal } from '@features/edit-track';
 import { DeleteTrackModal } from '@features/delete-track';
 import { UploadFileModal } from '@features/upload-file';
 import { DeleteFileModal } from '@features/delete-file';
+import { PlayButton } from '@features/player/ui/play-button';
+
 export const TrackItem = ({ track }: { track: ITrackResponse }) => {
   return (
     <li>
@@ -36,7 +38,7 @@ export const TrackItem = ({ track }: { track: ITrackResponse }) => {
               </div>
             </div>
           </div>
-          {track.audioFile && <Audio fileName={track.audioFile} />}
+          {track.audioFile && <PlayButton track={track} />}
         </div>
       </div>
     </li>

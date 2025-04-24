@@ -2,7 +2,7 @@ import { Button } from '@shared/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@shared/ui/form';
 import { useForm } from 'react-hook-form';
 import { Input } from '@shared/ui/input';
-import { useUploadAudioFileMutation } from '@entities/track/model/api';
+import { useUploadAudioFileMutation } from '@shared/model/api';
 
 type UploadFileFormValues = {
   file: FileList;
@@ -36,11 +36,10 @@ export const UploadFileForm = ({
     formData.append('file', file);
 
     try {
-      const response = await uploadFile({
+      await uploadFile({
         id: trackId,
         body: formData,
       }).unwrap();
-      console.log('Successfully uploaded:', response);
 
       closeModal();
     } catch (error) {

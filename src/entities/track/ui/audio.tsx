@@ -1,7 +1,13 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { API_URL } from '@shared/lib/constants';
 
-export const Audio = ({ fileName }: { fileName: string }) => {
+type AudioProps = {
+  fileName: string;
+  onAudioReady?: () => void;
+} & React.ComponentProps<'audio'>;
+
+export const Audio = forwardRef<HTMLAudioElement, AudioProps>((props: AudioProps, ref) => {
+  const { fileName, onAudioReady, ...restProps } = props;
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -16,20 +22,23 @@ export const Audio = ({ fileName }: { fileName: string }) => {
 
         const url = URL.createObjectURL(blob);
         setAudioUrl(url);
+
+        onAudioReady?.();
       } catch (e) {
         console.error(e);
       }
     };
 
     fetchTrack();
-  }, [fileName]);
+  }, [fileName, onAudioReady]);
+
   return (
     <>
       {audioUrl && (
-        <audio controls src={audioUrl}>
+        <audio src={audioUrl} {...restProps} ref={ref}>
           Your browser doesn't support audio
         </audio>
       )}
     </>
   );
-};
+});

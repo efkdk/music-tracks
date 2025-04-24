@@ -6,6 +6,7 @@ import type {
   ITracksParams,
 } from '@entities/track/model/schema';
 import { API_URL } from '@shared/lib/constants';
+import { setTrackList } from '@features/player';
 
 export const tracksApi = createApi({
   reducerPath: 'trackApi',
@@ -17,6 +18,17 @@ export const tracksApi = createApi({
         url: 'tracks',
         params: params ?? undefined,
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          const tracksWithAudio = data.data.filter((track) => track.audioFile);
+
+          dispatch(setTrackList(tracksWithAudio));
+        } catch (e) {
+          console.error('Failed to fetch tracks:', e);
+        }
+      },
       providesTags: ['tracks'],
     }),
 

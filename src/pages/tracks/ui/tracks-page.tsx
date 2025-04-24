@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetTracksQuery } from '@entities/track/model/api';
+import { useGetTracksQuery } from '@shared/model/api';
 import { CreateTrackModal } from '@features/create-track';
 import { TrackItem, TracksSort, GenreFilter, ArtistFilter, Search } from '@pages/tracks';
 import type { SortField, SortOrder } from '@pages/tracks/model/schema';

@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from '@shared/ui/dialog';
 import { ITrackResponse } from '@entities/track/model/schema';
-import { useDeleteTrackByIdMutation } from '@entities/track/model/api';
+import { useDeleteTrackByIdMutation } from '@shared/model/api';
 
 type DeleteTrackModalProps = Pick<ITrackResponse, 'id' | 'title'>;
 

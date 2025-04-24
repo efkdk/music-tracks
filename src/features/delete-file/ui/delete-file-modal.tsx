@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from '@shared/ui/dialog';
 import { ITrackResponse } from '@entities/track/model/schema';
-import { useDeleteAudioFileMutation } from '@entities/track/model/api';
+import { useDeleteAudioFileMutation } from '@shared/model/api';
 
 type DeleteFileModalProps = Pick<ITrackResponse, 'id' | 'title'>;
 
