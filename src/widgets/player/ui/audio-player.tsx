@@ -64,7 +64,7 @@ export const AudioPlayer = () => {
   if (!currentTrack || !currentTrack.audioFile) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow flex flex-col gap-2 z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow flex flex-col gap-2 z-50 h-[6rem]">
       <Audio
         ref={audioRef}
         fileName={currentTrack.audioFile}

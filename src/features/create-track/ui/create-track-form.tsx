@@ -14,9 +14,11 @@ export const CreateTrackForm = ({ closeModal }: { closeModal: () => void }) => {
   };
 
   async function onSubmit(values: ITrack) {
-    const response = await createTrack(values);
-    if ('data' in response) {
+    try {
+      await createTrack(values).unwrap();
       closeModal();
+    } catch (e) {
+      console.error('Failed to create new track', e);
     }
   }
 

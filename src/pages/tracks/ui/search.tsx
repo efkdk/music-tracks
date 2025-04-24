@@ -10,7 +10,7 @@ export const Search = ({
   onChange: (value: string) => void;
 }) => {
   const [value, setValue] = useState<string>(search || '');
-  const debouncedValue = useDebounce<string>(value, 1000);
+  const debouncedValue = useDebounce<string>(value, 500);
 
   useEffect(() => {
     onChange(debouncedValue);

@@ -20,10 +20,12 @@ export const DeleteFileModal = ({ title, id }: DeleteFileModalProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   async function handleDelete() {
-    const response = await deleteAudioFileById(id);
-    if (!('error' in response)) {
+    try {
+      await deleteAudioFileById(id).unwrap();
       console.log('file successfully deleted');
       setIsOpen(false);
+    } catch (e) {
+      console.error('Failed to delete file:', e);
     }
   }
 

@@ -12,9 +12,11 @@ export const EditTrackForm = ({
   const [updateTrack, { isLoading }] = useUpdateTrackMutation();
 
   async function onSubmit(values: ITrack) {
-    const response = await updateTrack({ id: track.id, body: values });
-    if ('data' in response) {
+    try {
+      await updateTrack({ id: track.id, body: values }).unwrap();
       closeModal();
+    } catch (e) {
+      console.error('Failed to edit track:', e);
     }
   }
 

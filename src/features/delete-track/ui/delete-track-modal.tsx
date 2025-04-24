@@ -20,10 +20,12 @@ export const DeleteTrackModal = ({ title, id }: DeleteTrackModalProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   async function handleDelete() {
-    const response = await deleteTrackById(id);
-    if (!('error' in response)) {
+    try {
+      await deleteTrackById(id).unwrap();
       console.log('successfully deleted');
       setIsOpen(false);
+    } catch (e) {
+      console.error('Failed to delete track:', e);
     }
   }
 
