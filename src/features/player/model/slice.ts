@@ -60,11 +60,11 @@ export const playerSlice = createSlice({
     },
   },
   selectors: {
-    isLastTrackSelector(state) {
+    selectIsLastTrack(state) {
       const currentIndex = state.trackList.findIndex((t) => t.id === state.currentTrack?.id);
       return currentIndex + 1 === state.trackList.length;
     },
-    isFirstTrackSelector(state) {
+    selectIsFirstTrack(state) {
       const currentIndex = state.trackList.findIndex((t) => t.id === state.currentTrack?.id);
       return currentIndex === 0;
     },
@@ -82,6 +82,6 @@ export const {
   playPrevTrack,
 } = playerSlice.actions;
 
-export const { isLastTrackSelector, isFirstTrackSelector } = playerSlice.selectors;
+export const { selectIsFirstTrack, selectIsLastTrack } = playerSlice.selectors;
 
 export const playerReducer = playerSlice.reducer;

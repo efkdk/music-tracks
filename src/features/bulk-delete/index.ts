@@ -3,7 +3,9 @@ export {
   selectAll,
   clearSelection,
   selectSelectedIds,
+  selectIsBulkDelete,
   selectedTracksReducer,
+  setIsBulkDelete,
 } from './model/slice';
 
 export { BulkDeleteButtons } from './ui/bulk-delete-buttons';

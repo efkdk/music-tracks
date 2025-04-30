@@ -1,4 +1,6 @@
-import { useAppSelector, useAppDispatch } from '@shared/lib/hooks';
+import { FC, useEffect, useRef, useState } from 'react';
+import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
+import { Audio, TrackImage } from '@entities/track';
 import {
   pauseTrack,
   resumeTrack,
@@ -6,26 +8,36 @@ import {
   setVolume,
   playNextTrack,
   playPrevTrack,
-  isFirstTrackSelector,
-  isLastTrackSelector,
+  selectIsFirstTrack,
+  selectIsLastTrack,
 } from '@features/player';
-import { useEffect, useRef, useState } from 'react';
+import { formatTime } from '@widgets/player/lib/helpers';
 import { Button } from '@shared/ui/button';
 import { Slider } from '@shared/ui/slider';
-import { Audio, TrackImage } from '@entities/track';
-import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
-import { formatTime } from '@widgets/player/lib/helpers';
+import { useAppSelector, useAppDispatch } from '@shared/lib/hooks';
 
-export const AudioPlayer = () => {
+type AudioPlayerProps = {
+  onVisible?: () => void;
+  onHidden?: () => void;
+};
+
+export const AudioPlayer: FC<AudioPlayerProps> = ({ onVisible, onHidden }) => {
   const { currentTrack, isPlaying, volume, progress } = useAppSelector((state) => state.player);
   const [prevVolume, setPrevVolume] = useState<number>(0);
 
-  const isLastTrack = useAppSelector(isLastTrackSelector);
-  const isFirstTrack = useAppSelector(isFirstTrackSelector);
+  const isLastTrack = useAppSelector(selectIsLastTrack);
+  const isFirstTrack = useAppSelector(selectIsFirstTrack);
 
   const [isAudioReady, setIsAudioReady] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (currentTrack && currentTrack.audioFile) {
+      onVisible?.();
+    }
+    return () => onHidden?.();
+  }, [currentTrack, onVisible, onHidden]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -119,12 +131,6 @@ export const AudioPlayer = () => {
               <Play />
             </Button>
           )}
-          <Button
-            className="justify-self-center"
-            onClick={() => dispatch(isPlaying ? pauseTrack() : resumeTrack())}
-          >
-            {isPlaying ? <Pause /> : <Play />}
-          </Button>
           <Button disabled={isLastTrack} onClick={() => dispatch(playNextTrack())}>
             <SkipForward />
           </Button>

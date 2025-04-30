@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
 import { RootLayout } from '@app/router/layout';
 import { TracksPage } from '@pages/tracks';
 import { ErrorPage } from '@pages/error';
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
 
     children: [
-      { path: '/', element: <TracksPage /> },
+      { path: '/', element: <Navigate to="/tracks" replace /> },
       { path: '/tracks', element: <TracksPage /> },
     ],
   },

@@ -9,8 +9,8 @@ export {
   setTrackList,
   playNextTrack,
   playPrevTrack,
-  isFirstTrackSelector,
-  isLastTrackSelector,
+  selectIsFirstTrack,
+  selectIsLastTrack,
 } from './model/slice';
 
 export { playerReducer } from './model/slice';
